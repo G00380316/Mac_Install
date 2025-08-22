@@ -4,7 +4,6 @@ packages=(
     "kitty" "kodi" "node" "python" "git"
     "rust" "zoxide" "lsd" "fastfetch"
     "dbgate" "postman" "lazygit" "obsidian" "vesktop"
-    "karabiner-elements"
 )
 
 ###### GLOBAL FUNCTIONS ######
