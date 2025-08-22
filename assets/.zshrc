@@ -70,12 +70,8 @@ zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 # Display Pokemon-colorscripts
 # Project page: https://gitlab.com/phoneybadger/pokemon-colorscripts#on-other-distros-and-macos
 # pokemon-colorscripts --no-title -s -r #without fastfetch
-# pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
+pokemon-colorscripts --no-title -s -r | fastfetch -c $HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -
 #
-fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
-# fastfetch. Will be disabled if above colorscript was chosen to install
-# fastfetch -c $HOME/.config/fastfetch/config-compact.jsonc
-# fastfetch --logo "$HYDE_CACHE_HOME/wall.quad" --logo-type kitty
 
 # Aliases
 alias ls='lsd --color=auto'
@@ -136,9 +132,5 @@ precmd() {
 # Editor
 export EDITOR=nvim
 [[ -n $SSH_CONNECTION ]] && export EDITOR=vim
-
-# Default Exports #
-export PATH=$PATH:~/.config/hypr/scripts
-###
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

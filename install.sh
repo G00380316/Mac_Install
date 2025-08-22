@@ -1,10 +1,10 @@
 ###### PACKAGES ######
-
 packages=(
     "fzf" "neovim" "visual-studio-code" "gcc" "firefox"
     "kitty" "kodi" "node" "python" "git"
-    "rust" "zoxide" "lsd" "rust" "fastfetch"
+    "rust" "zoxide" "lsd" "fastfetch"
     "dbgate" "postman" "lazygit" "obsidian" "vesktop"
+    "karabiner-elements"
 )
 
 ###### GLOBAL FUNCTIONS ######
@@ -25,13 +25,18 @@ RESET="$(tput sgr0)"
 
 #----- Create Directory for Install Logs -----#
 if [ ! -d Install-Logs ]; then
-    mkdir Install-Logs
+    mkdir Install-Logs || { echo "Failed to create log directory"; exit 1; }
 fi
 
 #----- Set the name of the log file to include the current date and time -----#
 LOG="Install-Logs/install-$(date +%d-%H%M%S)_install.log"
 
 ISBREW=$(command -v brew)
+
+if [ -z "$ISBREW" ]; then
+    echo "${ERROR} Homebrew is not installed. Exiting..."
+    exit 1
+fi
 
 show_progress() {
     local pid=$1
@@ -53,30 +58,49 @@ show_progress() {
     tput cnorm
 }
 
-install_package() {
-  (
-    stdbuf -oL $ISBREW install "$1" 2>&1
-  ) >> "$LOG" 2>&1 &
-  PID=$!
-  show_progress $PID "$1"
-
-  # Double check if package is installed
-  if $ISBREW -Q "$1" &> /dev/null ; then
-    echo -e "${OK} Package ${YELLOW}$1${RESET} has been successfully installed!"
+# Function to check if a package is already installed
+is_installed() {
+  if $ISBREW list "$1" &> /dev/null; then
+    return 0  # Package is installed
   else
-    # Something is missing, exiting to review log
-    echo -e "\n${ERROR} ${YELLOW}$1${RESET} failed to install :( , please check the install.log. You may need to install manually! Sorry I have tried :("
+    return 1  # Package is not installed
+  fi
+}
+
+# Improved package installation with error handling
+install_package() {
+  # Check if the package is already installed
+  if is_installed "$1"; then
+    echo "${INFO} ${YELLOW}$1${RESET} is already installed, skipping..."
+    return 0
+  fi
+
+  # Capture the installation output and the exit code
+  local install_output
+  install_output=$(stdbuf -oL $ISBREW install "$1" 2>&1)
+  echo "$install_output" >> "$LOG"
+  local exit_code=$?
+
+  # Check for installation failure in the output
+  if [[ "$install_output" =~ "Error" || "$exit_code" -ne 0 ]]; then
+    echo "${ERROR} ${YELLOW}$1${RESET} failed to install :( , please check the install.log. You may need to install manually!"
+    return 1
+  else
+    echo "${OK} Package ${YELLOW}$1${RESET} has been successfully installed!"
+    return 0
   fi
 }
 
 ###### INSTALLER/PACKAGE MANAGER SETUP ######
-
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
+brew install coreutil
+
+# Function to install all packages
 install_packages(){
-for package in "${packages[@]}";do
+  for package in "${packages[@]}"; do
     echo "⏳ Installing package: $package"
     if ! install_package "$package"; then
       echo "❌ FAILED: $package"
@@ -86,35 +110,16 @@ for package in "${packages[@]}";do
   done
 }
 
-install_package
-###### TERMINAL SETUP ######
-
-# #----- Install Pokemon Color Scripts -----#
-# printf "${NOTE} Installing ${SKY_BLUE}Pokemon Color Scripts${RESET}\n"
-# for pok in "pokemon-colorscripts-git"; do
-#   install_package "$pok" "$LOG"
-# done
-#
-# printf "\n%.0s" {1..1}
-# #----- Check if ~/.zshrc exists -----#
-# if [ -f "$HOME/.zshrc" ]; then
-# 	sed -i 's|^#pokemon-colorscripts --no-title -s -r \| fastfetch -c \$HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -|pokemon-colorscripts --no-title -s -r \| fastfetch -c \$HOME/.config/fastfetch/config-pokemon.jsonc --logo-type file-raw --logo-height 10 --logo-width 5 --logo -|' "$HOME/.zshrc" >> "$LOG" 2>&1
-# 	sed -i "s|^fastfetch -c \$HOME/.config/fastfetch/config-compact.jsonc|#fastfetch -c \$HOME/.config/fastfetch/config-compact.jsonc|" "$HOME/.zshrc" >> "$LOG" 2>&1
-# else
-#     echo "$HOME/.zshrc not found. Cant enable ${YELLOW}Pokemon color scripts${RESET}" >> "$LOG" 2>&1
-# fi
-#   
-# printf "\n%.0s" {1..2}
-
-###### DEVELOPMENT TOOL SETUPS ######
+install_packages
 
 #----- Clone Neovim config -----#
 echo "Cloning Neovim configuration..."
-if [ -d ~/.config/nvim/.git ]; then
-    echo "nvim config already cloned in ./nvim, pulling latest changes..."
-    git -C ~/.config/nvim/.git pull
+if [ -d ~/.config/nvim ]; then
+    echo "nvim config already cloned in ~/.config/nvim, pulling latest changes..."
+    git -C ~/.config/nvim pull
 else
     echo "Cloning nvim config fresh..."
     rm -rf ~/.config/nvim
     git clone https://github.com/G00380316/nvim.git ~/.config/nvim/
 fi
+
