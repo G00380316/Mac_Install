@@ -4,6 +4,7 @@ packages=(
     "kitty" "kodi" "node" "python" "git"
     "rust" "zoxide" "lsd" "fastfetch"
     "dbgate" "postman" "lazygit" "obsidian" "vesktop"
+    "temurin@8" "temurin@21" "ripgrep" "libplist"
 )
 
 ###### GLOBAL FUNCTIONS ######
@@ -22,7 +23,11 @@ BLUE="$(tput setaf 4)"
 SKY_BLUE="$(tput setaf 6)"
 RESET="$(tput sgr0)"
 
-#----- Create Directory for Install Logs -----#
+#----- Create Directory for Install -----#
+if [ ! -d .config ]; then
+    mkdir .config || { echo "Failed to create log directory"; exit 1; }
+fi
+
 if [ ! -d Install-Logs ]; then
     mkdir Install-Logs || { echo "Failed to create log directory"; exit 1; }
 fi
@@ -36,6 +41,8 @@ if [ -z "$ISBREW" ]; then
     echo "${ERROR} Homebrew is not installed. Exiting..."
     exit 1
 fi
+
+#----- Moving configs to Computers .config -----#
 
 show_progress() {
     local pid=$1
@@ -95,7 +102,8 @@ install_package() {
 echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile 
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
-brew install coreutil
+brew install core
+sudo softwareupdate --install-rosetta
 
 # Function to install all packages
 install_packages(){
@@ -120,5 +128,8 @@ else
     echo "Cloning nvim config fresh..."
     rm -rf ~/.config/nvim
     git clone https://github.com/G00380316/nvim.git ~/.config/nvim/
+    cd ~/.config/nvim/
+    git checkout mac
+    cd ~/Mac_Install
 fi
 
