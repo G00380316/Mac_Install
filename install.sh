@@ -5,6 +5,7 @@ packages=(
     "rust" "zoxide" "lsd" "fastfetch"
     "dbgate" "postman" "lazygit" "obsidian" "vesktop"
     "temurin@8" "temurin@21" "ripgrep" "libplist"
+    "font-jetbrains-mono" "watchman" "ngrok"
 )
 
 ###### GLOBAL FUNCTIONS ######
@@ -98,8 +99,14 @@ install_package() {
 }
 
 ###### INSTALLER/PACKAGE MANAGER SETUP ######
+
+# Setting Computer and Hostname
+sudo scutil --set HostName "Enochs-MacBook"
+sudo scutil --set LocalHostName "Enochs-MacBook"
+sudo scutil --set ComputerName "Enochs-MacBook"
+
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile 
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> ~/.zprofile
 eval "$(/opt/homebrew/bin/brew shellenv)"
 
 brew install core
