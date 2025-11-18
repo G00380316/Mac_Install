@@ -454,6 +454,8 @@ move_assets() {
   cp -r assets/config-compact.jsonc ~/.config/fastfetch
   cp -r assets/.zshrc ~/
   cp -r assets/.p10k.zsh ~/
+  cp -r assets/kitty.conf ~/.config/kitty/
+  sudo mkdir -p /usr/local/bin
   echo "${OK} Asset files moved."
 }
 
@@ -461,6 +463,7 @@ move_assets() {
 echo "${CAT} Starting package installation..."
 install_packages
 move_assets
+sudo ./assets/pokemon-colorscripts/install.sh
 
 ###### OPTIONAL: Neovim config ######
 echo "${NOTE} Setting up Neovim config..."
