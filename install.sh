@@ -9,6 +9,7 @@ packages=(
   "dbgate" "postman" "lazygit" "obsidian" "discord" #"vesktop"
   "temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
   "font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
+  "db-browser-for-sqlite" "fd" "bat"
 )
 
 ###### COLORS & LABELS ######
@@ -453,6 +454,9 @@ move_assets() {
   echo "${CAT} Moving asset files to config directory..."
   cp -r assets/config-compact.jsonc ~/.config/fastfetch
   cp -r assets/.zshrc ~/
+  cp -r assets/.zshenv ~/
+  mkdir ~/.config/scripts/
+  cp -r assets/pm.sh ~/.config/scripts/
   cp -r assets/.p10k.zsh ~/
   cp -r assets/kitty.conf ~/.config/kitty/
   sudo mkdir -p /usr/local/bin

@@ -64,9 +64,6 @@ zstyle ':fzf-tab:complete:cd:*' fzf-preview 'ls --color $realpath'
 zstyle ':fzf-tab:complete:__zoxide_z:*' fzf-preview 'ls --color $realpath'
 
 # Terminal Styling
-# cat .nf 2> /dev/null
-# setsid neofetch >| ~/.nf
-#
 # Display Pokemon-colorscripts
 # Project page: https://gitlab.com/phoneybadger/pokemon-colorscripts#on-other-distros-and-macos
 # pokemon-colorscripts --no-title -s -r #without fastfetch
@@ -79,37 +76,15 @@ alias l='ls -l'
 alias la='ls -a'
 alias lla='ls -la'
 alias lt='ls --tree'
-alias c='clear'
 alias q='exit'
 alias qa='exit'
 alias e='exec zsh'
-alias rs='reboot'
-alias ss='shutdown -h now'
-alias vp='zathura'
-alias vi='feh'
-alias yt='yt-dlp'
-alias calc='bc'
 alias n='nvim'
 alias ni='nvim $(fzf --preview="bat --color=always {}")'
-alias t='tmux'
-alias tl='tmux attach-session -t "$(tmux ls | tail -n1 | cut -d: -f1)"'
 alias lg='lazygit'
-alias doc="$HOME/.config/scripts/cht.sh"
-alias i="$HOME/.config/scripts/cht.sh"
 alias search='rg'
-alias sideloader='sideloader-cli-x86_64-linux-gnu'
-alias blueman='rofi-bluetooth'
 
 # Archive utils
-alias urar='unrar x'
-alias rar='rar a'
-alias gz='gunzip'
-alias bz2='bunzip2'
-alias tr='tar -xvf'
-alias trgz='tar -xzvf'
-alias trbz2='tar -xjvf'
-alias trxz='tar -xJvf'
-alias uxz='unxz'
 alias uzip='unzip'
 
 # Functions
