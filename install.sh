@@ -9,7 +9,7 @@ packages=(
   "dbgate" "postman" "lazygit" "obsidian" "discord" #"vesktop"
   "temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
   "font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
-  "db-browser-for-sqlite" "fd" "bat"
+  "db-browser-for-sqlite" "fd" "bat" "github"
 )
 
 ###### COLORS & LABELS ######
@@ -460,6 +460,8 @@ move_assets() {
   cp -r assets/.p10k.zsh ~/
   cp -r assets/kitty.conf ~/.config/kitty/
   sudo mkdir -p /usr/local/bin
+  sudo chown -R $USER ~/.config
+  chmod -R u=rwX,go=rX,go-w ~/.config
   echo "${OK} Asset files moved."
 }
 
