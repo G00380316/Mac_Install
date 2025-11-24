@@ -83,6 +83,9 @@ alias n='nvim'
 alias ni='nvim $(fzf --preview="bat --color=always {}")'
 alias lg='lazygit'
 alias search='rg'
+alias sa='caffeinate -d'
+alias lg='lazygit'
+alias docs="~/.config/scripts/cht.sh"
 
 # Archive utils
 alias uzip='unzip'
