@@ -20,7 +20,7 @@ done
 packages=(
     "coreutils" "fzf" "neovim" "visual-studio-code" "gcc" "firefox"
     "kitty" "kodi" "node" "python" "git"
-    "rust" "zoxide" "lsd" "fastfetch"
+    "rust" "zoxide" "lsd" "fastfetch" "imagemagick"
     "dbgate" "postman" "lazygit" "obsidian" "discord"
     "temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
     "font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
