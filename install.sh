@@ -226,11 +226,9 @@ if [ -d ~/.config/nvim ]; then
 else
     echo "${INFO} Cloning nvim config..."
     if $DRY_RUN; then
-        echo "${INFO} (DRY RUN): Would run 'git clone https://github.com/G00380316/nvim.git ~/.config/nvim' and checkout the 'mac' branch."
+        echo "${INFO} (DRY RUN): Would run 'git clone https://github.com/G00380316/nvim.git ~/.config/nvim'."
     else
         git clone https://github.com/G00380316/nvim.git ~/.config/nvim
-        # Assuming 'mac' branch exists and is the desired configuration for macOS
-        (cd ~/.config/nvim && git checkout mac)
     fi
 fi
 
