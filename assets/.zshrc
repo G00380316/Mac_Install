@@ -101,6 +101,10 @@ extract() {
   esac
 }
 
+checkPort(){
+    lsof -i :"$1"
+}
+
 # Terminal title
 precmd() {
   [[ -n "$NVIM" ]] && echo -ne "\033]0;Neovim: ${PWD##*/}\007"
