@@ -73,7 +73,7 @@ echo "${INFO} Font casks are now part of the main Homebrew repo — no separate 
 
 echo "${CAT} Setting system host and computer names to Enoch-MacBook or Enoch-MacMini..."
 if $DRY_RUN; then
-    echo "${INFO} (DRY RUN): Would run 'sudo scutil --set HostName Enochs-MacBook(or Enoch-MacMini)' (and LocalHostName/ComputerName)."
+    echo "${INFO} (DRY RUN): Would set HostName/LocalHostName/ComputerName."
 else
     NAMES=("Enoch-MacBook" "Enoch-MacMini")
 
@@ -81,7 +81,6 @@ else
         echo "$((i + 1))) ${NAMES[$i]}"
     done
 
-    echo
     echo -n "Enter your choice (1 or 2): "
     read -r CHOICE
 
@@ -97,6 +96,7 @@ else
         echo "Invalid option"
         exit 1
     fi
+fi
 
 echo "${CAT} Installing Rosetta 2 (for Apple Silicon Macs)..."
 if $DRY_RUN; then
@@ -197,14 +197,31 @@ move_assets() {
     mkdir -p ~/.config/fastfetch
     mkdir -p ~/.config/kitty
     mkdir -p ~/.config/scripts/
+    mkdir -p ~/Documents/Github/
+ 
+    if ! $DRY_RUN; then
+        if command -v git &>/dev/null; then
+            if [ -d "$HOME/Documents/Github/Mac_Install/.git" ]; then
+                echo "[ACTION] Repo exists. Pulling updates..."
+                git -C "$HOME/Documents/Github/Mac_Install" pull --rebase
+            else
+                echo "[ACTION] Cloning repo..."
+                git clone https://github.com/G00380316/Mac_Install.git "$HOME/Documents/Github/"
+            fi
+        else
+            echo "[ERROR] Git is not installed."
+            exit 1
+        fi
+    fi
+
     
-    cp -r assets/config-compact.jsonc ~/.config/fastfetch/
-    cp -r assets/.zshrc ~/
-    cp -r assets/.zshenv ~/
-    cp -r assets/pm.sh ~/.config/scripts/
-    cp -r assets/cht.sh ~/.config/scripts/
-    cp -r assets/.p10k.zsh ~/
-    cp -r assets/kitty.conf ~/.config/kitty/
+    cp -r ~/Documents/Github/Mac_Install/assets/config-compact.jsonc ~/.config/fastfetch/
+    cp -r ~/Documents/Github/Mac_Install/assets/.zshrc ~/
+    cp -r ~/Documents/Github/Mac_Install/assets/.zshenv ~/
+    cp -r ~/Documents/Github/Mac_Install/assets/pm.sh ~/.config/scripts/
+    cp -r ~/Documents/Github/Mac_Install/assets/cht.sh ~/.config/scripts/
+    cp -r ~/Documents/Github/Mac_Install/assets/.p10k.zsh ~/
+    cp -r ~/Documents/Github/Mac_Install/assets/kitty.conf ~/.config/kitty/
     
     sudo mkdir -p /usr/local/bin || true
     sudo chown -R "$USER" ~/.config
@@ -223,11 +240,11 @@ echo "${CAT} Configuring assets and scripts..."
 move_assets
 
 # Install Pokemon Colorscripts
-if [ -f assets/pokemon-colorscripts/install.sh ]; then
+if [ -f ~/Documents/Github/Mac_Install/assets/pokemon-colorscripts/install.sh ]; then
     if $DRY_RUN; then
-        echo "${INFO} (DRY RUN): Would run 'sudo ./assets/pokemon-colorscripts/install.sh'"
+        echo "${INFO} (DRY RUN): Would run 'sudo ~/Documents/Github/Mac_Install/assets/pokemon-colorscripts/install.sh'"
     else
-        sudo ./assets/pokemon-colorscripts/install.sh
+        sudo ~/Documents/Github/Mac_Install/assets/pokemon-colorscripts/install.sh
     fi
 else
     echo "${WARN} Could not find assets/pokemon-colorscripts/install.sh - skipping." >> "$LOG"
