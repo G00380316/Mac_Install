@@ -71,14 +71,32 @@ echo "${INFO} Font casks are now part of the main Homebrew repo — no separate 
 
 # --- SYSTEM SETUP ---
 
-echo "${CAT} Setting system host and computer names to Enochs-MacBook..."
+echo "${CAT} Setting system host and computer names to Enoch-MacBook or Enoch-MacMini..."
 if $DRY_RUN; then
-    echo "${INFO} (DRY RUN): Would run 'sudo scutil --set HostName Enochs-MacBook' (and LocalHostName/ComputerName)."
+    echo "${INFO} (DRY RUN): Would run 'sudo scutil --set HostName Enochs-MacBook(or Enoch-MacMini)' (and LocalHostName/ComputerName)."
 else
-    sudo scutil --set HostName "Enochs-MacBook"
-    sudo scutil --set LocalHostName "Enochs-MacBook"
-    sudo scutil --set ComputerName "Enochs-MacBook"
-fi
+    NAMES=("Enoch-MacBook" "Enoch-MacMini")
+
+    for i in "${!NAMES[@]}"; do
+        echo "$((i + 1))) ${NAMES[$i]}"
+    done
+
+    echo
+    echo -n "Enter your choice (1 or 2): "
+    read -r CHOICE
+
+    if [[ "$CHOICE" == "1" ]]; then
+        sudo scutil --set HostName "Enoch-MacBook"
+        sudo scutil --set LocalHostName "Enoch-MacBook"
+        sudo scutil --set ComputerName "Enoch-MacBook"
+    elif [[ "$CHOICE" == "2" ]]; then
+        sudo scutil --set HostName "Enoch-MacMini"
+        sudo scutil --set LocalHostName "Enoch-MacMini"
+        sudo scutil --set ComputerName "Enoch-MacMini"
+    else
+        echo "Invalid option"
+        exit 1
+    fi
 
 echo "${CAT} Installing Rosetta 2 (for Apple Silicon Macs)..."
 if $DRY_RUN; then
