@@ -240,11 +240,11 @@ echo "${CAT} Configuring assets and scripts..."
 move_assets
 
 # Install Pokemon Colorscripts
-if [ -f "$HOME/Documents/Github/Mac_Install/assets/pokemon-colorscripts/install.sh" ]; then
+if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh" ]; then
     if $DRY_RUN; then
-        echo "${INFO} (DRY RUN): Would run 'sudo ~/Documents/Github/Mac_Install/assets/pokemon-colorscripts/install.sh'"
+        echo "${INFO} (DRY RUN): Would run 'sudo ~/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh'"
     else
-        sudo "$HOME/Documents/Github/Mac_Install/assets/pokemon-colorscripts/install.sh"
+        sudo "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh"
     fi
 else
     echo "${WARN} Could not find assets/pokemon-colorscripts/install.sh - skipping." >> "$LOG"
