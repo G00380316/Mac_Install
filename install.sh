@@ -243,7 +243,8 @@ if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/insta
 	if $DRY_RUN; then
 		echo "${INFO} (DRY RUN): Would run 'sudo ~/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh'"
 	else
-		sudo "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh"
+		cd "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/"
+		./install.sh
 	fi
 else
 	echo "${WARN} Could not find assets/pokemon-colorscripts/install.sh - skipping." >>"$LOG"
