@@ -197,8 +197,8 @@ move_assets() {
     mkdir -p ~/.config/fastfetch
     mkdir -p ~/.config/kitty
     mkdir -p ~/.config/scripts/
-    mkdir -p ~/Documents/Github/
- 
+    mkdir -p ~/Documents/Github/Mac_Install/
+
     if ! $DRY_RUN; then
         if command -v git &>/dev/null; then
             if [ -d "$HOME/Documents/Github/Mac_Install/.git" ]; then
@@ -206,7 +206,7 @@ move_assets() {
                 git -C "$HOME/Documents/Github/Mac_Install" pull --rebase
             else
                 echo "[ACTION] Cloning repo..."
-                git clone https://github.com/G00380316/Mac_Install.git "$HOME/Documents/Github/"
+                git clone https://github.com/G00380316/Mac_Install.git "$HOME/Documents/Github/Mac-Install"
             fi
         else
             echo "[ERROR] Git is not installed."
