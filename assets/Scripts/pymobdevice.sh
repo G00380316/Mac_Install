@@ -9,3 +9,5 @@ if [[ "${DONE,,}" == "done" ]]; then
 else
 	echo "Wrong input, try again."
 fi
+
+# /Applications/Xcode.app/Contents/Developer/usr/bin/python3 -m pip install pymobiledevice3==2.30.0 construct==2.10.69
