@@ -206,7 +206,7 @@ move_assets() {
                 git -C "$HOME/Documents/Github/Mac_Install" pull --rebase
             else
                 echo "[ACTION] Cloning repo..."
-                git clone https://github.com/G00380316/Mac_Install.git "$HOME/Documents/Github/Mac_Install"
+                git clone --recursive https://github.com/G00380316/Mac_Install.git "$HOME/Documents/Github/Mac_Install"
             fi
         else
             echo "[ERROR] Git is not installed."
