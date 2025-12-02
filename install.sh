@@ -24,7 +24,7 @@ packages=(
 	"dbgate" "postman" "lazygit" "obsidian" "discord"
 	"temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
-	"db-browser-for-sqlite" "fd" "bat" "github" "tldr"
+	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs"
 )
 
 # Colors and labels for script output
