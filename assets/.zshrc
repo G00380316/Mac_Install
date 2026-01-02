@@ -83,9 +83,11 @@ alias n='nvim'
 alias ni='nvim $(fzf --preview="bat --color=always {}")'
 alias lg='lazygit'
 alias search='rg'
-alias sa='caffeinate -d'
+alias nosleep='caffeinate -d'
 alias lg='lazygit'
 alias docs="~/.config/scripts/cht.sh"
+alias penv="python3 -m venv .venv"
+alias senv="source .venv/bin/activate"
 
 # Archive utils
 alias uzip='unzip'
@@ -104,7 +106,6 @@ extract() {
 checkPort(){
     lsof -i :"$1"
 }
-
 # Terminal title
 precmd() {
   [[ -n "$NVIM" ]] && echo -ne "\033]0;Neovim: ${PWD##*/}\007"
@@ -114,5 +115,7 @@ precmd() {
 # Editor
 export EDITOR=nvim
 [[ -n $SSH_CONNECTION ]] && export EDITOR=vim
+
+export TMPDIR=/tmp
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh

@@ -8,23 +8,23 @@ DRY_RUN=false
 
 # Process command-line arguments for dry run flag
 for arg in "$@"; do
-	case $arg in
-	--dry=true)
-		DRY_RUN=true
-		shift
-		;;
-	esac
+    case $arg in
+    --dry=true)
+        DRY_RUN=true
+        shift
+        ;;
+    esac
 done
 
 # Package list includes all entries from your final block.
 packages=(
-	"coreutils" "fzf" "neovim" "visual-studio-code" "gcc" "firefox"
-	"kitty" "kodi" "node" "python" "git"
-	"rust" "zoxide" "lsd" "fastfetch" "imagemagick"
-	"dbgate" "postman" "lazygit" "obsidian" "discord"
-	"temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
-	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
-	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs"
+    "coreutils" "fzf" "neovim" "visual-studio-code" "gcc" "firefox"
+    "kitty" "kodi" "node" "python" "git"
+    "rust" "zoxide" "lsd" "fastfetch" "imagemagick"
+    "dbgate" "postman" "lazygit" "obsidian" "discord"
+    "temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
+    "font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
+    "db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
 )
 
 # Colors and labels for script output
@@ -39,8 +39,8 @@ RESET="$(tput sgr0)"
 
 # Announce Dry Run Mode if active
 if $DRY_RUN; then
-	echo "${WARN} --- DRY RUN MODE IS ACTIVE ---"
-	echo "${WARN} No actual installation, configuration, or file changes will occur."
+    echo "${WARN} --- DRY RUN MODE IS ACTIVE ---"
+    echo "${WARN} No actual installation, configuration, or file changes will occur."
 fi
 
 # Initial Setup
@@ -53,18 +53,18 @@ LOG="Install-Logs/install-$(date +%d-%H%M%S)_install.log"
 
 echo "${CAT} Checking for Homebrew installation..."
 if ! command -v brew &>/dev/null; then
-	echo "${ERROR} Homebrew not found. Installing..."
-	if $DRY_RUN; then
-		echo "${INFO} (DRY RUN): Would install Xcode Command Line Tools and Homebrew."
-	else
-		xcode-select --install || true
-		/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-		echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
-		eval "$(/opt/homebrew/bin/brew shellenv)"
-	fi
+    echo "${ERROR} Homebrew not found. Installing..."
+    if $DRY_RUN; then
+        echo "${INFO} (DRY RUN): Would install Xcode Command Line Tools and Homebrew."
+    else
+        xcode-select --install || true
+        /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+        echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
+        eval "$(/opt/homebrew/bin/brew shellenv)"
+    fi
 else
-	echo "${OK} Homebrew already installed. Updating environment."
-	eval "$(/opt/homebrew/bin/brew shellenv)"
+    echo "${OK} Homebrew already installed. Updating environment."
+    eval "$(/opt/homebrew/bin/brew shellenv)"
 fi
 
 echo "${INFO} Font casks are now part of the main Homebrew repo — no separate tap needed."
@@ -73,161 +73,162 @@ echo "${INFO} Font casks are now part of the main Homebrew repo — no separate 
 
 echo "${CAT} Setting system host and computer names to Enoch-MacBook or Enoch-MacMini..."
 if $DRY_RUN; then
-	echo "${INFO} (DRY RUN): Would set HostName/LocalHostName/ComputerName."
+    echo "${INFO} (DRY RUN): Would set HostName/LocalHostName/ComputerName."
 else
-	NAMES=("Enoch-MacBook" "Enoch-MacMini")
+    NAMES=("Enoch-MacBook" "Enoch-MacMini")
 
-	for i in "${!NAMES[@]}"; do
-		echo "$((i + 1))) ${NAMES[$i]}"
-	done
+    for i in "${!NAMES[@]}"; do
+        echo "$((i + 1))) ${NAMES[$i]}"
+    done
 
-	echo -n "Enter your choice (1 or 2): "
-	read -r CHOICE
+    echo -n "Enter your choice (1 or 2): "
+    read -r CHOICE
 
-	if [[ "$CHOICE" == "1" ]]; then
-		sudo scutil --set HostName "Enoch-MacBook"
-		sudo scutil --set LocalHostName "Enoch-MacBook"
-		sudo scutil --set ComputerName "Enoch-MacBook"
-	elif [[ "$CHOICE" == "2" ]]; then
-		sudo scutil --set HostName "Enoch-MacMini"
-		sudo scutil --set LocalHostName "Enoch-MacMini"
-		sudo scutil --set ComputerName "Enoch-MacMini"
-	else
-		echo "Invalid option"
-		exit 1
-	fi
+    if [[ "$CHOICE" == "1" ]]; then
+        sudo scutil --set HostName "Enoch-MacBook"
+        sudo scutil --set LocalHostName "Enoch-MacBook"
+        sudo scutil --set ComputerName "Enoch-MacBook"
+    elif [[ "$CHOICE" == "2" ]]; then
+        sudo scutil --set HostName "Enoch-MacMini"
+        sudo scutil --set LocalHostName "Enoch-MacMini"
+        sudo scutil --set ComputerName "Enoch-MacMini"
+    else
+        echo "Invalid option"
+        exit 1
+    fi
 fi
 
 echo "${CAT} Installing Rosetta 2 (for Apple Silicon Macs)..."
 if $DRY_RUN; then
-	echo "${INFO} (DRY RUN): Would run 'sudo softwareupdate --install-rosetta --agree-to-license'."
+    echo "${INFO} (DRY RUN): Would run 'sudo softwareupdate --install-rosetta --agree-to-license'."
 else
-	sudo softwareupdate --install-rosetta --agree-to-license || true
+    sudo softwareupdate --install-rosetta --agree-to-license || true
 fi
 
 # --- FUNCTIONS ---
 
 # Progress indicator function (simplified) - only used in actual install
 show_progress() {
-	local pid=$1
-	local pkg=$2
-	local spin_chars=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
-	local i=0
-	tput civis
-	while ps -p "$pid" &>/dev/null; do
-		printf "\r${NOTE} Installing ${YELLOW}%s${RESET} %s" "$pkg" "${spin_chars[i]}"
-		i=$(((i + 1) % 10))
-		sleep 0.1
-	done
-	printf "\r${OK} ${YELLOW}%s${RESET} installed successfully!%-20s\n" "$pkg" ""
-	tput cnorm
+    local pid=$1
+    local pkg=$2
+    local spin_chars=("⠋" "⠙" "⠹" "⠸" "⠼" "⠴" "⠦" "⠧" "⠇" "⠏")
+    local i=0
+    tput civis
+    while ps -p "$pid" &>/dev/null; do
+        printf "\r${NOTE} Installing ${YELLOW}%s${RESET} %s" "$pkg" "${spin_chars[i]}"
+        i=$(((i + 1) % 10))
+        sleep 0.1
+    done
+    printf "\r${OK} ${YELLOW}%s${RESET} installed successfully!%-20s\n" "$pkg" ""
+    tput cnorm
 }
 
 # Check if a package or cask is installed
 is_installed() {
-	brew list --formula "$1" &>/dev/null || brew list --cask "$1" &>/dev/null
+    brew list --formula "$1" &>/dev/null || brew list --cask "$1" &>/dev/null
 }
 
 # Install all packages from the list
 install_packages() {
-	local installed=0
-	local skipped=0
-	local failed=0
+    local installed=0
+    local skipped=0
+    local failed=0
 
-	for pkg in "${packages[@]}"; do
-		if is_installed "$pkg"; then
-			echo "${INFO} ${YELLOW}$pkg${RESET} already installed — skipping..."
-			echo "[SKIPPED] $pkg already installed" >>"$LOG"
-			((skipped++))
-			continue
-		fi
+    for pkg in "${packages[@]}"; do
+        if is_installed "$pkg"; then
+            echo "${INFO} ${YELLOW}$pkg${RESET} already installed — skipping..."
+            echo "[SKIPPED] $pkg already installed" >>"$LOG"
+            ((skipped++))
+            continue
+        fi
 
-		echo "${NOTE} Installing ${YELLOW}$pkg${RESET}..."
+        echo "${NOTE} Installing ${YELLOW}$pkg${RESET}..."
 
-		if $DRY_RUN; then
-			local install_type="formula"
-			if brew info "$pkg" | grep -q "Cask"; then
-				install_type="cask"
-			fi
-			echo "${INFO} (DRY RUN): Would run 'brew install --$install_type $pkg'"
-			echo "[DRY RUN] Would install $pkg" >>"$LOG"
-			printf "\r${OK} ${YELLOW}%s${RESET} (DRY RUN) Action logged!%-20s\n" "$pkg" ""
-			((installed++)) # Increment installed count for summary clarity in dry run
-			continue
-		fi
+        if $DRY_RUN; then
+            local install_type="formula"
+            if brew info "$pkg" | grep -q "Cask"; then
+                install_type="cask"
+            fi
+            echo "${INFO} (DRY RUN): Would run 'brew install --$install_type $pkg'"
+            echo "[DRY RUN] Would install $pkg" >>"$LOG"
+            printf "\r${OK} ${YELLOW}%s${RESET} (DRY RUN) Action logged!%-20s\n" "$pkg" ""
+            ((installed++)) # Increment installed count for summary clarity in dry run
+            continue
+        fi
 
-		# --- Actual Installation Block ---
-		if (brew info "$pkg" | grep -q "Cask"); then
-			(brew install --cask "$pkg" >>"$LOG" 2>&1) &
-		else
-			(brew install "$pkg" >>"$LOG" 2>&1) &
-		fi
+        # --- Actual Installation Block ---
+        if (brew info "$pkg" | grep -q "Cask"); then
+            (brew install --cask "$pkg" >>"$LOG" 2>&1) &
+        else
+            (brew install "$pkg" >>"$LOG" 2>&1) &
+        fi
 
-		pid=$!
-		show_progress $pid "$pkg"
+        pid=$!
+        show_progress $pid "$pkg"
 
-		if wait $pid; then
-			((installed++))
-		else
-			echo "${ERROR} ${YELLOW}$pkg${RESET} failed to install. Check ${LOG}"
-			echo "[ERROR] $pkg installation failed" >>"$LOG"
-			((failed++))
-		fi
-	done
+        if wait $pid; then
+            ((installed++))
+        else
+            echo "${ERROR} ${YELLOW}$pkg${RESET} failed to install. Check ${LOG}"
+            echo "[ERROR] $pkg installation failed" >>"$LOG"
+            ((failed++))
+        fi
+    done
 
-	echo
-	echo "${OK} Installation Summary:"
-	echo "  ✅ Installed: ${installed}"
-	echo "  ⚙️  Skipped: ${skipped}"
-	echo "  ❌ Failed: ${failed}"
-	echo
-	echo "Full logs saved to ${LOG}"
+    echo
+    echo "${OK} Installation Summary:"
+    echo "  ✅ Installed: ${installed}"
+    echo "  ⚙️  Skipped: ${skipped}"
+    echo "  ❌ Failed: ${failed}"
+    echo
+    echo "Full logs saved to ${LOG}"
 }
 
 # Function to move config and asset files
 move_assets() {
-	echo "${CAT} Moving asset files to config directory..."
+    echo "${CAT} Moving asset files to config directory..."
 
-	if $DRY_RUN; then
-		echo "${INFO} (DRY RUN): Would create directories and copy configuration files to ~/.config and ~/"
-		return
-	fi
+    if $DRY_RUN; then
+        echo "${INFO} (DRY RUN): Would create directories and copy configuration files to ~/.config and ~/"
+        return
+    fi
 
-	# --- Actual File Operations ---
-	mkdir -p ~/.config/fastfetch
-	mkdir -p ~/.config/kitty
-	mkdir -p ~/.config/scripts/
-	mkdir -p ~/Documents/Github/Mac_Install/
+    # --- Actual File Operations ---
+    mkdir -p ~/.config/fastfetch
+    mkdir -p ~/.config/kitty
+    mkdir -p ~/.config/scripts/
+    mkdir -p ~/Documents/Github/Mac_Install/
 
-	if ! $DRY_RUN; then
-		if command -v git &>/dev/null; then
-			if [ -d "$HOME/Documents/Github/Mac_Install/.git" ]; then
-				echo "[ACTION] Repo exists. Pulling updates..."
-				git -C "$HOME/Documents/Github/Mac_Install" pull --rebase
-			else
-				echo "[ACTION] Cloning repo..."
-				git clone --recursive https://github.com/G00380316/Mac_Install.git "$HOME/Documents/Github/Mac_Install"
-			fi
-		else
-			echo "[ERROR] Git is not installed."
-			exit 1
-		fi
-	fi
+    if ! $DRY_RUN; then
+        if command -v git &>/dev/null; then
+            if [ -d "$HOME/Documents/Github/Mac_Install/.git" ]; then
+                echo "[ACTION] Repo exists. Pulling updates..."
+                git -C "$HOME/Documents/Github/Mac_Install" pull --rebase
+            else
+                echo "[ACTION] Cloning repo..."
+                git clone --recursive https://github.com/G00380316/Mac_Install.git "$HOME/Documents/Github/Mac_Install"
+            fi
+        else
+            echo "[ERROR] Git is not installed."
+            exit 1
+        fi
+    fi
 
-	cp -r ~/Documents/Github/Mac_Install/assets/config-compact.jsonc ~/.config/fastfetch/
-	cp -r ~/Documents/Github/Mac_Install/assets/.zshrc ~/
-	cp -r ~/Documents/Github/Mac_Install/assets/.zshenv ~/
-	cp -r ~/Documents/Github/Mac_Install/assets/pm.sh ~/.config/scripts/
-	cp -r ~/Documents/Github/Mac_Install/assets/cht.sh ~/.config/scripts/
-	cp -r ~/Documents/Github/Mac_Install/assets/.p10k.zsh ~/
-	cp -r ~/Documents/Github/Mac_Install/assets/kitty.conf ~/.config/kitty/
+    cp -r ~/Documents/Github/Mac_Install/assets/config-compact.jsonc ~/.config/fastfetch/
+    cp -r ~/Documents/Github/Mac_Install/assets/.zshrc ~/
+    cp -r ~/Documents/Github/Mac_Install/assets/.zshenv ~/
+    cp -r ~/Documents/Github/Mac_Install/assets/pm.sh ~/.config/scripts/
+    cp -r ~/Documents/Github/Mac_Install/assets/cht.sh ~/.config/scripts/
+    cp -r ~/Documents/Github/Mac_Install/assets/.p10k.zsh ~/
+    cp -r ~/Documents/Github/Mac_Install/assets/kitty.conf ~/.config/kitty/
+    cp -r ~/Documents/Github/Mac_Install/assets/.hammerspoon/ ~/
 
-	sudo mkdir -p /usr/local/bin || true
-	sudo chown -R "$USER" ~/.config
-	chmod -R u=rwX,go=rX,go-w ~/.config
-	chmod +x ~/.config/scripts/*
+    sudo mkdir -p /usr/local/bin || true
+    sudo chown -R "$USER" ~/.config
+    chmod -R u=rwX,go=rX,go-w ~/.config
+    chmod +x ~/.config/scripts/*
 
-	echo "${OK} Asset files moved."
+    echo "${OK} Asset files moved."
 }
 
 # --- MAIN INSTALL LOOP ---
@@ -240,31 +241,31 @@ move_assets
 
 # Install Pokemon Colorscripts
 if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh" ]; then
-	if $DRY_RUN; then
-		echo "${INFO} (DRY RUN): Would run 'sudo ~/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh'"
-	else
-		cd "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/"
-		./install.sh
-	fi
+    if $DRY_RUN; then
+        echo "${INFO} (DRY RUN): Would run 'sudo ~/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh'"
+    else
+        cd "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/"
+        ./install.sh
+    fi
 else
-	echo "${WARN} Could not find assets/pokemon-colorscripts/install.sh - skipping." >>"$LOG"
+    echo "${WARN} Could not find assets/pokemon-colorscripts/install.sh - skipping." >>"$LOG"
 fi
 
 echo "${NOTE} Setting up Neovim config..."
 if [ -d ~/.config/nvim ]; then
-	echo "${INFO} Updating existing nvim config..."
-	if $DRY_RUN; then
-		echo "${INFO} (DRY RUN): Would run 'git -C ~/.config/nvim pull'"
-	else
-		git -C ~/.config/nvim pull
-	fi
+    echo "${INFO} Updating existing nvim config..."
+    if $DRY_RUN; then
+        echo "${INFO} (DRY RUN): Would run 'git -C ~/.config/nvim pull'"
+    else
+        git -C ~/.config/nvim pull
+    fi
 else
-	echo "${INFO} Cloning nvim config..."
-	if $DRY_RUN; then
-		echo "${INFO} (DRY RUN): Would run 'git clone https://github.com/G00380316/nvim.git ~/.config/nvim'."
-	else
-		git clone https://github.com/G00380316/nvim.git ~/.config/nvim
-	fi
+    echo "${INFO} Cloning nvim config..."
+    if $DRY_RUN; then
+        echo "${INFO} (DRY RUN): Would run 'git clone https://github.com/G00380316/nvim.git ~/.config/nvim'."
+    else
+        git clone https://github.com/G00380316/nvim.git ~/.config/nvim
+    fi
 fi
 
 echo
