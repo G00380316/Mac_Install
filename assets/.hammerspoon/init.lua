@@ -1,4 +1,4 @@
-s.hotkey.bind({ "cmd" }, "return", function()
+hs.hotkey.bind({ "cmd" }, "return", function()
     local app = hs.application.get("kitty")
 
     -- If kitty exists AND has at least one window, do nothing
