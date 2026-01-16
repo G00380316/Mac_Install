@@ -221,7 +221,8 @@ move_assets() {
     cp -r ~/Documents/Github/Mac_Install/assets/cht.sh ~/.config/scripts/
     cp -r ~/Documents/Github/Mac_Install/assets/.p10k.zsh ~/
     cp -r ~/Documents/Github/Mac_Install/assets/kitty.conf ~/.config/kitty/
-    cp -r ~/Documents/Github/Mac_Install/assets/.hammerspoon/ ~/
+    mkdir -p ~/.hammerspoon/
+    cp -r ~/Documents/Github/Mac_Install/assets/init.lua ~/.hammerspoon/
 
     sudo mkdir -p /usr/local/bin || true
     sudo chown -R "$USER" ~/.config
