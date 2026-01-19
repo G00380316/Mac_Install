@@ -18,14 +18,14 @@ done
 
 # Package list includes all entries from your final block.
 packages=(
-	"coreutils" "fzf" "neovim" "visual-studio-code" "gcc" "firefox"
+	"coreutils" "fzf" "bob" "visual-studio-code" "gcc" "firefox"
 	"kitty" "kodi" "node" "python" "git"
 	"rust" "zoxide" "lsd" "fastfetch" "imagemagick"
 	"dbgate" "postman" "lazygit" "obsidian" "discord"
 	"temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
 	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
-	"mactex" "bob"
+	"mactex"
 )
 
 # Colors and labels for script output
@@ -266,6 +266,8 @@ else
 	if $DRY_RUN; then
 		echo "${INFO} (DRY RUN): Would run 'git clone https://github.com/G00380316/nvim.git ~/.config/nvim'."
 	else
+        bob install nightly
+        bob use nightly
 		git clone https://github.com/G00380316/nvim.git ~/.config/nvim
 	fi
 fi
