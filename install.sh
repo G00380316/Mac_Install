@@ -25,7 +25,7 @@ packages=(
 	"temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
 	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
-	"mactex"
+	"mactex" "bob"
 )
 
 # Colors and labels for script output
