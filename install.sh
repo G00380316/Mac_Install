@@ -295,11 +295,8 @@ install_packages
 echo "${CAT} Configuring assets and scripts..."
 move_assets
 
-if command -v npm &>/dev/null; then
-  install_npm_packages
-else
-  echo "${WARN} npm not found — skipping npm installs"
-fi
+echo "${CAT} Starting Npm package installation..."
+install_npm_packages
 
 # Install Pokemon Colorscripts
 if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh" ]; then
