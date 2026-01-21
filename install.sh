@@ -26,6 +26,17 @@ packages=(
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
 	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
 	"mactex"
+
+	"lua-language-server" "basedpyright" "typescript-language-server" "xcode-build-server"
+	"bash-language-server" "texlab" "dprint" "harper" "jdtls" "markdown-oxide"
+	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
+	"superhtml" "llvm" "ty" "tinymist"
+)
+
+npm_packages=(
+  "css-variables-language-server" "vscode-langservers-extracted"
+  "cssmodules-language-server" "oxlint" "@tailwindcss/language-server"
+  "devsense-php-ls"
 )
 
 # Colors and labels for script output
@@ -129,6 +140,10 @@ is_installed() {
 	brew list --formula "$1" &>/dev/null || brew list --cask "$1" &>/dev/null
 }
 
+npm_is_installed() {
+  npm list -g --depth=0 "$1" &>/dev/null
+}
+
 # Install all packages from the list
 install_packages() {
 	local installed=0
@@ -183,6 +198,45 @@ install_packages() {
 	echo "  ❌ Failed: ${failed}"
 	echo
 	echo "Full logs saved to ${LOG}"
+}
+
+install_npm_packages() {
+  echo "${CAT} Installing global npm packages..."
+
+  local installed=0
+  local skipped=0
+  local failed=0
+
+  for pkg in "${npm_packages[@]}"; do
+    if npm_is_installed "$pkg"; then
+      echo "${INFO} ${YELLOW}$pkg${RESET} already installed — skipping..."
+      ((skipped++))
+      continue
+    fi
+
+    echo "${NOTE} Installing ${YELLOW}$pkg${RESET} (npm -g)..."
+
+    if $DRY_RUN; then
+      echo "${INFO} (DRY RUN): Would run 'npm install -g $pkg'"
+      ((installed++))
+      continue
+    fi
+
+    if npm install -g "$pkg" >>"$LOG" 2>&1; then
+      echo "${OK} ${YELLOW}$pkg${RESET} installed successfully"
+      ((installed++))
+    else
+      echo "${ERROR} ${YELLOW}$pkg${RESET} failed to install"
+      ((failed++))
+    fi
+  done
+
+  echo
+  echo "${OK} npm Installation Summary:"
+  echo "  ✅ Installed: ${installed}"
+  echo "  ⚙️  Skipped: ${skipped}"
+  echo "  ❌ Failed: ${failed}"
+  echo
 }
 
 # Function to move config and asset files
@@ -240,6 +294,12 @@ install_packages
 
 echo "${CAT} Configuring assets and scripts..."
 move_assets
+
+if command -v npm &>/dev/null; then
+  install_npm_packages
+else
+  echo "${WARN} npm not found — skipping npm installs"
+fi
 
 # Install Pokemon Colorscripts
 if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh" ]; then
