@@ -28,7 +28,7 @@ packages=(
 	"mactex"
 
 	"lua-language-server" "basedpyright" "typescript-language-server" "xcode-build-server"
-	"bash-language-server" "texlab" "dprint" "harper" "jdtls" "markdown-oxide"
+	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
 	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
 	"superhtml" "llvm" "ty" "tinymist"
 )
