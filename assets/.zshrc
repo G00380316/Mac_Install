@@ -113,6 +113,7 @@ precmd() {
 }
 
 # Editor
+export PATH="$HOME/.local/share/bob/nvim-bin:$PATH"
 export EDITOR=nvim
 [[ -n $SSH_CONNECTION ]] && export EDITOR=vim
 
