@@ -25,12 +25,12 @@ packages=(
 	"temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
 	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
-	"mactex-no-gui" "tree-sitter-cli"
+	"mactex-no-gui" "tree-sitter-cli" "docker" "docker-compose" "docker-desktop"
 
 	"lua-language-server" "basedpyright" "typescript-language-server" "xcode-build-server"
 	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
 	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
-	"superhtml" "llvm" "ty" "tinymist"
+	"superhtml" "llvm" "ty" "tinymist" "docker-language-server"
 )
 
 npm_packages=(
