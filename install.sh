@@ -25,7 +25,7 @@ packages=(
 	"temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
 	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
-	"mactex-no-gui"
+	"mactex-no-gui" "tree-sitter-cli"
 
 	"lua-language-server" "basedpyright" "typescript-language-server" "xcode-build-server"
 	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
