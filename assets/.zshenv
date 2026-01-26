@@ -126,3 +126,6 @@ if [ -t 1 ]; then
     add-zsh-hook -Uz precmd slow_load_warning
     # add-zsh-hook zshexit cleanup
 fi
+
+# Bob Neovim Path configuration
+. "$HOME/.local/share/bob/env/env.sh"
