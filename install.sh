@@ -36,7 +36,7 @@ packages=(
 npm_packages=(
   "css-variables-language-server" "vscode-langservers-extracted"
   "cssmodules-language-server" "oxlint" "@tailwindcss/language-server"
-  "devsense-php-ls"
+  "devsense-php-ls" "@microsoft/compose-language-service"
 )
 
 # Colors and labels for script output
