@@ -1,0 +1,4 @@
+Display leave same
+Keyboard leave same
+
+The rest that are not accounted for are to be switched off

@@ -18,7 +18,7 @@ done
 
 # Package list includes all entries from your final block.
 packages=(
-	"coreutils" "fzf" "bob" "visual-studio-code" "gcc" "firefox"
+	"coreutils" "fzf" "bob" "gcc" "firefox"
 	"kitty" "kodi" "node" "python" "git"
 	"rust" "zoxide" "lsd" "fastfetch" "imagemagick"
 	"dbgate" "postman" "lazygit" "obsidian" "discord"
@@ -26,8 +26,8 @@ packages=(
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
 	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
 	"mactex-no-gui" "tree-sitter-cli" "docker" "docker-compose" "docker-desktop"
-    "mpv"
-
+    "mpv" "mas"
+    # "visual-studio-code"
 	"lua-language-server" "basedpyright" "typescript-language-server" "xcode-build-server"
 	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
 	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
@@ -38,6 +38,10 @@ npm_packages=(
   "css-variables-language-server" "vscode-langservers-extracted"
   "cssmodules-language-server" "oxlint" "@tailwindcss/language-server"
   "devsense-php-ls" "@microsoft/compose-language-service"
+)
+
+mac_apps=(
+    "497799835" "6467635137" "1527554407" "1444383602"
 )
 
 # Colors and labels for script output
@@ -145,6 +149,10 @@ npm_is_installed() {
   npm list -g --depth=0 "$1" &>/dev/null
 }
 
+mac_app_is_installed() {
+  mas list "$1" &>/dev/null
+}
+
 # Install all packages from the list
 install_packages() {
 	local installed=0
@@ -240,6 +248,45 @@ install_npm_packages() {
   echo
 }
 
+install_mac_apps() {
+  echo "${CAT} Installing Mac apps..."
+
+  local installed=0
+  local skipped=0
+  local failed=0
+
+  for pkg in "${mac_apps[@]}"; do
+    if mac_app_is_installed "$pkg"; then
+      echo "${INFO} ${YELLOW}$pkg${RESET} already installed — skipping..."
+      ((skipped++))
+      continue
+    fi
+
+    echo "${NOTE} Installing ${YELLOW}$pkg${RESET} (mas install)..."
+
+    if $DRY_RUN; then
+      echo "${INFO} (DRY RUN): Would run 'mas install $pkg'"
+      ((installed++))
+      continue
+    fi
+
+    if mas install "$pkg" >>"$LOG" 2>&1; then
+      echo "${OK} ${YELLOW}$pkg${RESET} installed successfully"
+      ((installed++))
+    else
+      echo "${ERROR} ${YELLOW}$pkg${RESET} failed to install"
+      ((failed++))
+    fi
+  done
+
+  echo
+  echo "${OK} npm Installation Summary:"
+  echo "  ✅ Installed: ${installed}"
+  echo "  ⚙️  Skipped: ${skipped}"
+  echo "  ❌ Failed: ${failed}"
+  echo
+}
+
 # Function to move config and asset files
 move_assets() {
 	echo "${CAT} Moving asset files to config directory..."
@@ -299,6 +346,9 @@ move_assets
 echo "${CAT} Starting Npm package installation..."
 install_npm_packages
 
+echo "${CAT} Starting App Store apps installation..."
+install_mac_apps 
+
 # Install Pokemon Colorscripts
 if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh" ]; then
 	if $DRY_RUN; then
@@ -309,6 +359,29 @@ if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/insta
 	fi
 else
 	echo "${WARN} Could not find assets/pokemon-colorscripts/install.sh - skipping." >>"$LOG"
+fi
+
+echo "${NOTE} Setting up Swift in Neovim..."
+if [ -d /Applications/Xcode.app/Contents/Developer ]; then
+	echo "${INFO} Trying to Point to Xcode Swift Compiler..."
+	if $DRY_RUN; then
+		echo "${INFO} (DRY RUN): Would run 'sudo xcode-select -s /Applications/Xcode.app/Contents/Developer'"
+	else
+        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+		echo "${INFO} xcode-build-server Setup Completed!"
+	fi
+else
+	echo "${INFO} Xcode not installed trying to install..."
+	if $DRY_RUN; then
+		echo "${INFO} (DRY RUN): Would run 'sudo xcode-select -s /Applications/Xcode.app/Contents/Developer' and Installing Xcode"
+	else
+		echo "${INFO} Installing Xcode..."
+        mas install 497799835
+		echo "${INFO} Xcode installed!"
+	    echo "${INFO} Trying to Point to Xcode Swift Compiler..."
+        sudo xcode-select -s /Applications/Xcode.app/Contents/Developer
+		echo "${INFO} xcode-build-server Setup Completed!"
+	fi
 fi
 
 echo "${NOTE} Setting up Neovim config..."
@@ -324,9 +397,13 @@ else
 	if $DRY_RUN; then
 		echo "${INFO} (DRY RUN): Would run 'git clone https://github.com/G00380316/nvim.git ~/.config/nvim'."
 	else
+		echo "${INFO} Installing Neovim nightly..."
         bob install nightly
+		echo "${INFO} Neovim nightly installed!"
         bob use nightly
+		echo "${INFO} Using Neovim nightly."
 		git clone https://github.com/G00380316/nvim.git ~/.config/nvim
+		echo "${INFO} Cloning finished!"
 	fi
 fi
 
