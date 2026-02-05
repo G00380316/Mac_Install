@@ -94,6 +94,7 @@ alias uzip='unzip'
 
 # Functions
 mkcd() { mkdir -p "$1" && cd "$1"; }
+pipi() { python3 -m pip install "$1" }
 extract() {
   case "$1" in
     *.tar.bz2) tar xvjf "$1" ;;

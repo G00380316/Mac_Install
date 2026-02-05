@@ -58,18 +58,18 @@ local function launchKittyWithNvim()
         :start()
 end
 
-hs.hotkey.bind({ "cmd" }, "return", function()
+hs.hotkey.bind({ "cmd", "shift" }, "return", function()
     launchKittyWithNvim()
 end)
 
-hs.hotkey.bind({ "cmd", "shift" }, "return", function()
-    hs.task
-        .new("/bin/zsh", nil, {
-            "-lc",
-            "open -n -a Kitty",
-        })
-        :start()
-end)
+-- hs.hotkey.bind({ "cmd", "shift" }, "return", function()
+--     hs.task
+--         .new("/bin/zsh", nil, {
+--             "-lc",
+--             "open -n -a Kitty",
+--         })
+--         :start()
+-- end)
 
 --------------------------------------------------
 -- App shortcuts
