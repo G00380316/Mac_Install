@@ -88,13 +88,13 @@ alias lg='lazygit'
 alias docs="~/.config/scripts/cht.sh"
 alias penv="python3 -m venv .venv"
 alias senv="source .venv/bin/activate"
-
-# Archive utils
 alias uzip='unzip'
 
 # Functions
 mkcd() { mkdir -p "$1" && cd "$1"; }
-pipi() { python3 -m pip install "$1" }
+
+pip() { python3 -m pip install "$1" }
+
 extract() {
   case "$1" in
     *.tar.bz2) tar xvjf "$1" ;;
@@ -107,10 +107,45 @@ extract() {
 checkPort(){
     lsof -i :"$1"
 }
-# Terminal title
-precmd() {
-  [[ -n "$NVIM" ]] && echo -ne "\033]0;Neovim: ${PWD##*/}\007"
-  [[ "$TERM" == screen* ]] && echo -ne "\033k${HOST%%.*}: ${PWD##*/}\033\\" || echo -ne "\033]0;${HOST%%.*}: ${PWD##*/}\007"
+
+run() {
+    # Exit if no file is provided
+    if [[ -z "$1" ]]; then
+        echo "Usage: run <filename>"
+        return 1
+    fi
+
+    local file="$1"
+    local base="${file%.*}" # Removes the last extension
+    local ext="${file##*.}" # Gets the extension (e.g., c, cpp, py)
+
+    case "$ext" in
+        tex)
+            xelatex --interaction=batchmode "$file" > /dev/null 2>&1 && open "${base}.pdf"
+            ;;
+        c)
+            gcc "$file" -o "$base" && ./"$base"
+            ;;
+        cpp)
+            g++ "$file" -o "$base" && ./"$base"
+            ;;
+        py)
+            python3 "$file"
+            ;;
+        js)
+            node "$file"
+            ;;
+        go)
+            go run "$file"
+            ;;
+        java)
+            javac "$file" && java "$base"
+            ;;
+        *)
+            echo "Error: I don't know how to run '.$ext' files yet."
+            return 1
+            ;;
+    esac
 }
 
 # Editor
