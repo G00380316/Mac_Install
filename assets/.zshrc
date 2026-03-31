@@ -141,6 +141,10 @@ run() {
         java)
             javac "$file" && java "$base"
             ;;
+        sh)
+            chmod +x "$file" 2>/dev/null
+            ./"$file"
+            ;;
         *)
             echo "Error: I don't know how to run '.$ext' files yet."
             return 1
