@@ -1,5 +1,5 @@
 keybinding:
   universal:
     quit: "q"
-    quit-alt1: "<disabled>"
+    quit-alt1: "<c-q>"
     return: "<c-c>"
