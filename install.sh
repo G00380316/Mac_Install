@@ -327,7 +327,7 @@ move_assets() {
 	cp -r ~/Documents/Github/Mac_Install/assets/.p10k.zsh ~/
 	cp -r ~/Documents/Github/Mac_Install/assets/kitty.conf ~/.config/kitty/
 	cp -r ~/Documents/Github/Mac_Install/assets/init.lua ~/.hammerspoon/
-	cp -r ~/Documents/Github/Mac_Install/assets/config.yml ~/Library/Application Support/lazygit/
+	cp -r ~/Documents/Github/Mac_Install/assets/config.yml "~/Library/Application Support/lazygit/"
 
 	sudo mkdir -p /usr/local/bin || true
 	sudo chown -R "$USER" ~/.config
