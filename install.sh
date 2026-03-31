@@ -301,6 +301,8 @@ move_assets() {
 	mkdir -p ~/.config/kitty
 	mkdir -p ~/.config/scripts/
 	mkdir -p ~/Documents/Github/Mac_Install/
+    mkdir -p ~/Library/Application Support/lazygit/
+    mkdir -p ~/.hammerspoon/
 
 	if ! $DRY_RUN; then
 		if command -v git &>/dev/null; then
@@ -324,8 +326,8 @@ move_assets() {
 	cp -r ~/Documents/Github/Mac_Install/assets/cht.sh ~/.config/scripts/
 	cp -r ~/Documents/Github/Mac_Install/assets/.p10k.zsh ~/
 	cp -r ~/Documents/Github/Mac_Install/assets/kitty.conf ~/.config/kitty/
-	mkdir -p ~/.hammerspoon/
 	cp -r ~/Documents/Github/Mac_Install/assets/init.lua ~/.hammerspoon/
+	cp -r ~/Documents/Github/Mac_Install/assets/config.yml ~/Library/Application Support/lazygit/
 
 	sudo mkdir -p /usr/local/bin || true
 	sudo chown -R "$USER" ~/.config
