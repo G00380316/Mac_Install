@@ -2,6 +2,9 @@
 set -e
 
 # --- CONFIGURATION & ARGUMENT PARSING ---
+export HOMEBREW_NO_AUTO_UPDATE=1
+export HOMEBREW_NO_ENV_HINTS=1
+export CI=1
 
 # Initialize Dry Run flag
 DRY_RUN=false
