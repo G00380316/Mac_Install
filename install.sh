@@ -112,6 +112,7 @@ else
 		sudo scutil --set HostName "Enoch-MacMini"
 		sudo scutil --set LocalHostName "Enoch-MacMini"
 		sudo scutil --set ComputerName "Enoch-MacMini"
+        mas install 1595464182
 	else
 		echo "Invalid option"
 		exit 1
