@@ -44,7 +44,7 @@ npm_packages=(
 )
 
 mac_apps=(
-    "497799835" "6467635137" "1527554407" "1444383602"
+    "497799835" "6467635137" "1527554407" "1444383602" "1595464182"
 )
 
 # Colors and labels for script output
@@ -112,7 +112,6 @@ else
 		sudo scutil --set HostName "Enoch-MacMini"
 		sudo scutil --set LocalHostName "Enoch-MacMini"
 		sudo scutil --set ComputerName "Enoch-MacMini"
-        mas install 1595464182
 	else
 		echo "Invalid option"
 		exit 1
