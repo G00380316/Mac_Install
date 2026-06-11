@@ -29,7 +29,7 @@ packages=(
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
 	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
 	"mactex-no-gui" "tree-sitter-cli" "docker" "docker-compose" "docker-desktop"
-    "mpv" "mas" "xcp" "scrcpy" "rar" "gh"
+    "mpv" "mas" "xcp" "scrcpy" "rar" "gh" "surfshark"
     # "visual-studio-code"
 	"lua-language-server" "basedpyright" "typescript-language-server" "xcode-build-server"
 	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
@@ -411,6 +411,25 @@ else
 		echo "${INFO} Cloning finished!"
 	fi
 fi
+
+
+echo "${CAT} Starting System Optimisation..."
+# Window speed
+defaults write -g NSWindowResizeTime -float 0.001
+defaults write -g NSAutomaticWindowAnimationsEnabled -bool false
+defaults write -g NSWindowSheetPresentationAnimationDuration -float 0.1
+
+# Dock speed
+defaults write com.apple.dock autohide-delay -float 0
+defaults write com.apple.dock autohide-time-modifier -float 0.1
+defaults write com.apple.dock launchanim -bool false
+defaults write com.apple.dock expose-animation-duration -float 0.1
+defaults write com.apple.dock mru-spaces -bool false
+
+# Mission Control feel
+defaults write com.apple.dock workspaces-swoosh-animation-off -bool true
+
+killall Dock
 
 echo
 echo "${OK} All package installations and configurations complete. Logs saved to ${LOG}"

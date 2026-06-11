@@ -1,6 +1,33 @@
+local spaces = require("hs.spaces")
+
+hs.window.filter.default:subscribe(hs.window.filter.windowFullscreened, function(win)
+    if not win then return end
+
+    local screen = hs.screen.mainScreen()
+    local s = spaces.spacesForScreen(screen:getUUID())
+    if not s then return end
+
+    local target = s[#s]
+
+    if target then
+        hs.timer.doAfter(0.1, function()
+            spaces.moveWindowToSpace(win:id(), target)
+            spaces.gotoSpace(target)
+        end)
+    end
+end)
+
 -- =========================
 -- Keymaps
 -- =========================
+
+-- Full Screen
+hs.hotkey.bind({ "alt", "shift" }, "f", function()
+    local win = hs.window.focusedWindow()
+    if not win then return end
+
+    win:setFullscreen(not win:isFullscreen())
+end)
 
 
 local function launchApp(appName, opts)
