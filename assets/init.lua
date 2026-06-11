@@ -1,4 +1,8 @@
--- Generic app launcher
+-- =========================
+-- Keymaps
+-- =========================
+
+
 local function launchApp(appName, opts)
     opts = opts or {}
     local fullscreen = opts.fullscreen
