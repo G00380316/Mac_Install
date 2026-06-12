@@ -64,6 +64,83 @@ local function launchApp(appName, opts)
     end)
 end
 
+-- Droppy
+
+local activeKey = nil
+local oldPos = nil
+
+local function getNotchPos()
+    local frame = hs.screen.mainScreen():fullFrame()
+    return {
+        x = frame.x + frame.w / 2,
+        y = frame.y + 25,
+    }
+end
+
+local function isInNotchZone(pos, notchPos)
+    return math.abs(pos.x - notchPos.x) <= 200
+        and math.abs(pos.y - notchPos.y) <= 75
+end
+
+local function focusDroppy()
+    local app = hs.application.get("Droppy")
+    if app then
+        app:activate(true)
+    end
+end
+
+local function activateDroppy(key)
+    local notchPos = getNotchPos()
+    local currentPos = hs.mouse.absolutePosition()
+
+    if not isInNotchZone(currentPos, notchPos) then
+        oldPos = currentPos
+    end
+
+    hs.mouse.absolutePosition(notchPos)
+    focusDroppy()
+
+    activeKey = key
+end
+
+local function transitionDroppy(key)
+    if oldPos then
+        hs.mouse.absolutePosition(oldPos)
+    end
+
+    hs.timer.doAfter(0.01, function()
+        activateDroppy(key)
+    end)
+end
+
+local function deactivateDroppy()
+    if oldPos then
+        hs.mouse.absolutePosition(oldPos)
+    end
+
+    activeKey = nil
+end
+
+local keys = { "D", "W", "M", "N", "space", "A", "T" }
+
+for _, key in ipairs(keys) do
+    hs.hotkey.bind({ "alt", "shift" }, key, function()
+        if activeKey == key then
+            deactivateDroppy()
+        elseif activeKey ~= nil then
+            transitionDroppy(key)
+        else
+            activateDroppy(key)
+        end
+    end)
+end
+
+-- local app = hs.application.get("Droppy")
+-- print(hs.inspect(app:allWindows()))
+-- for _, app in ipairs(hs.application.runningApplications()) do
+--     print(app:name())
+-- end
+--
 --------------------------------------------------
 -- Kitty shortcuts
 --------------------------------------------------
