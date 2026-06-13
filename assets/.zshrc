@@ -86,12 +86,17 @@ alias search='rg'
 alias nosleep='caffeinate -d'
 alias lg='lazygit'
 alias docs="~/.config/scripts/cht.sh"
-alias penv="python3 -m venv .venv"
-alias senv="source .venv/bin/activate"
-alias uzip='unzip'
 
 # Functions
 mkcd() { mkdir -p "$1" && cd "$1"; }
+
+
+setup() {
+  case "$1" in
+    python)    python3 -m venv .venv && source .venv/bin/activate  ;;
+    *)         echo "Unsupported Project" ;;
+  esac
+}
 
 pip() { python3 -m pip install "$1" }
 
@@ -159,3 +164,4 @@ export EDITOR=nvim
 export TMPDIR=/tmp
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
