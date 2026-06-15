@@ -135,7 +135,7 @@ run() {
             g++ "$file" -o "$base" && ./"$base"
             ;;
         py)
-            python3 "$file"
+            python3 "$file" "${@:2}"
             ;;
         js)
             node "$file"

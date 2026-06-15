@@ -27,7 +27,7 @@ packages=(
 	"dbgate" "postman" "lazygit" "obsidian" "discord"
 	"temurin@8" "temurin@21" "ripgrep" "libplist" "ipatool"
 	"font-jetbrains-mono" "font-caskaydia-cove-nerd-font" "watchman" "ngrok"
-	"db-browser-for-sqlite" "fd" "bat" "github" "tldr" "git-lfs" "hammerspoon"
+	"db-browser-for-sqlite" "fd" "bat" "github" "git-lfs" "hammerspoon"
 	"mactex-no-gui" "tree-sitter-cli" "docker" "docker-compose" "docker-desktop"
     "mpv" "mas" "xcp" "scrcpy" "rar" "gh" "surfshark"
     # "visual-studio-code"
@@ -35,6 +35,7 @@ packages=(
 	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
 	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
 	"superhtml" "llvm" "ty" "tinymist" "docker-language-server" "localsend"
+    "wgcf"
 )
 
 npm_packages=(
@@ -44,7 +45,7 @@ npm_packages=(
 )
 
 mac_apps=(
-    "497799835" "6467635137" "1527554407" "1444383602" "1595464182"
+    "497799835" "6467635137" "1444383602" "1595464182"
 )
 
 # Colors and labels for script output
