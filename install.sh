@@ -35,7 +35,7 @@ packages=(
 	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
 	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
 	"superhtml" "llvm" "ty" "tinymist" "docker-language-server" "localsend"
-    "wgcf" "loop"
+    "wgcf" "loop" "codex" "anomalyco/tap/opencode"
 )
 
 npm_packages=(
@@ -415,6 +415,7 @@ fi
 
 
 echo "${CAT} Starting System Optimisation..."
+
 # Window speed
 defaults write -g NSWindowResizeTime -float 0.001
 defaults write -g NSAutomaticWindowAnimationsEnabled -bool false

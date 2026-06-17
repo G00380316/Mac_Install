@@ -3,13 +3,13 @@
 <plist version="1.0">
 <dict>
 	<key>appVersion</key>
-	<string>14.0.4</string>
+	<string>14.1.0-beta.2</string>
 	<key>buildVersion</key>
-	<string>140004</string>
+	<string>14100002</string>
 	<key>bundleIdentifier</key>
 	<string>iordv.Droppy</string>
 	<key>exportedAt</key>
-	<string>2026-06-12T01:06:18Z</string>
+	<string>2026-06-17T02:45:25Z</string>
 	<key>settings</key>
 	<dict>
 		<key>MenuBarManager_AutoHideDelay</key>
@@ -32,26 +32,24 @@
 		<true/>
 		<key>NSOSPLastRootDirectory</key>
 		<data>
-		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
+		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
-		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
+		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
 		</data>
 		<key>NSStatusItem Preferred Position DroppyMBM_Hidden</key>
 		<real>201</real>
@@ -60,7 +58,7 @@
 		<key>NSStatusItem Visible Item-0</key>
 		<false/>
 		<key>NSWindow Frame NSNavPanelAutosaveName</key>
-		<string>560 455 800 448 0 0 1920 1055 </string>
+		<string>500 507 800 448 0 0 1800 1125 </string>
 		<key>accessibilityGranted</key>
 		<true/>
 		<key>aiBackgroundRemovalInstalled</key>
@@ -69,12 +67,14 @@
 		<string>1.0.0</string>
 		<key>aiCodingHUDTracked</key>
 		<true/>
+		<key>aiCodingHUD_compactPriority</key>
+		<string>coding</string>
 		<key>aiCodingHUD_enabled</key>
-		<false/>
+		<true/>
 		<key>aiCodingHUD_installed</key>
 		<true/>
 		<key>alwaysCopyOnDrag</key>
-		<true/>
+		<false/>
 		<key>appleMusicTracked</key>
 		<true/>
 		<key>autoExpandDelay</key>
@@ -96,7 +96,7 @@
 		<key>caffeine_instantlyExpandShelfOnHover</key>
 		<true/>
 		<key>caffeine_mode</key>
-		<string>System Only</string>
+		<string>Display Only</string>
 		<key>clipboardHistoryLimit</key>
 		<integer>50</integer>
 		<key>debounceMediaChanges</key>
@@ -119,10 +119,16 @@
 		<true/>
 		<key>didRepairThunderstormAutoInstallV1</key>
 		<true/>
+		<key>didRestoreNotesDropletV1</key>
+		<true/>
 		<key>didSeedCleanExtensionStateV3</key>
 		<true/>
 		<key>disableAnalytics</key>
 		<true/>
+		<key>droppyQuickNotes_v1</key>
+		<data>
+		W10=
+		</data>
 		<key>droppy_analytics_id</key>
 		<string>13C913A7-E8A3-4F63-BFFF-7A9EE4049087</string>
 		<key>droppy_has_tracked_install</key>
@@ -132,6 +138,8 @@
 		<key>enableAutoClean</key>
 		<true/>
 		<key>enableBasketAutoHide</key>
+		<true/>
+		<key>enableBetaUpdates</key>
 		<true/>
 		<key>enableClipboardBeta</key>
 		<true/>
@@ -146,7 +154,7 @@
 		<key>enableNotchShelf</key>
 		<true/>
 		<key>enableQuickActions</key>
-		<true/>
+		<false/>
 		<key>enableRightClickHide</key>
 		<false/>
 		<key>enableTrackedFolders</key>
@@ -154,18 +162,20 @@
 		<key>enableVolumeHUDReplacement</key>
 		<true/>
 		<key>extension_removed_aiCodingHUD</key>
-		<true/>
+		<false/>
 		<key>extension_removed_caffeine</key>
 		<false/>
 		<key>extension_removed_flappyBird</key>
 		<true/>
 		<key>extension_removed_notes</key>
-		<true/>
+		<false/>
 		<key>extension_removed_notificationHUD</key>
 		<false/>
 		<key>extension_removed_pomodoro</key>
 		<false/>
 		<key>extension_removed_terminalNotch</key>
+		<false/>
+		<key>extension_removed_thunderstorm</key>
 		<false/>
 		<key>extension_removed_todo</key>
 		<false/>
@@ -177,6 +187,10 @@
 		<false/>
 		<key>externalSurfaceAppearance</key>
 		<string>black</string>
+		<key>favoriteWidgetOne</key>
+		<string>none</string>
+		<key>favoriteWidgetTwo</key>
+		<string>none</string>
 		<key>ffmpeg_installed_cache</key>
 		<true/>
 		<key>finderTracked</key>
@@ -187,24 +201,10 @@
 		<false/>
 		<key>ghostscript_installed_cache</key>
 		<true/>
-		<key>gumroadLicenseActive</key>
-		<false/>
-		<key>gumroadLicenseActiveActivations</key>
-		<integer>0</integer>
-		<key>gumroadLicenseDeviceName</key>
-		<string></string>
-		<key>gumroadLicenseEmail</key>
-		<string></string>
-		<key>gumroadLicenseKeyHint</key>
-		<string></string>
-		<key>gumroadLicenseMaxActivations</key>
-		<integer>2</integer>
-		<key>hasCompletedOnboarding</key>
-		<true/>
 		<key>hideNotchFromScreenshots</key>
 		<true/>
 		<key>hideNotchInMissionControl</key>
-		<true/>
+		<false/>
 		<key>hideNotchOnExternalDisplays</key>
 		<false/>
 		<key>hidePhysicalNotch</key>
@@ -222,35 +222,25 @@
 		<key>lastAccessibilityPromptDate</key>
 		<date>2026-02-17T00:27:27Z</date>
 		<key>lastAutoUpdateCheck</key>
-		<date>2026-06-11T22:57:38Z</date>
+		<date>2026-06-17T01:08:09Z</date>
 		<key>lastCleanExitTimestamp</key>
-		<real>1781224721.966264</real>
+		<real>1781525805.9023681</real>
 		<key>lastSessionCrashed</key>
 		<true/>
-		<key>licenseTrialAccountHash</key>
-		<string>1ebd6151cc2e19af8fcd667d0f7531068c2de3a6ba6a5b733e38a2369cf0b796</string>
-		<key>licenseTrialConsumed</key>
-		<true/>
-		<key>licenseTrialDeviceID</key>
-		<string>caf7f7ac3f1e121bb02b705a39442dfe38da43ffbf9869255edfda8533043828</string>
-		<key>licenseTrialExpiresAt</key>
-		<real>1781483887.533</real>
-		<key>licenseTrialLastRemoteSyncAt</key>
-		<real>1781224726</real>
-		<key>licenseTrialLastSeenAt</key>
-		<real>1781224725</real>
-		<key>licenseTrialSignedAssertion</key>
-		<string>eyJhbGciOiJFQ0RTQV9QMjU2X1NIQTI1Nl9SQVciLCJ0eXAiOiJkcm9wcHktYXNzZXJ0aW9uIiwidiI6MX0.eyJpc3MiOiJkcm9wcHktbGljZW5zaW5nIiwiYXVkIjoiZHJvcHB5LW1hY29zIiwia2luZCI6InRyaWFsIiwiYWN0aW9uIjoic3RhdHVzIiwiZGV2aWNlX2lkIjoiY2FmN2Y3YWMzZjFlMTIxYmIwMmI3MDVhMzk0NDJkZmUzOGRhNDNmZmJmOTg2OTI1NWVkZmRhODUzMzA0MzgyOCIsImRldmljZUlEIjoiY2FmN2Y3YWMzZjFlMTIxYmIwMmI3MDVhMzk0NDJkZmUzOGRhNDNmZmJmOTg2OTI1NWVkZmRhODUzMzA0MzgyOCIsImFwcF9idW5kbGVfaWQiOiJpb3Jkdi5Ecm9wcHkiLCJhcHBCdW5kbGVJRCI6ImlvcmR2LkRyb3BweSIsImlhdCI6MTc4MTIyNDcyNiwiZXhwIjoxNzgxMzExMTI1LCJhY2NvdW50X2hhc2giOiIxZWJkNjE1MWNjMmUxOWFmOGZjZDY2N2QwZjc1MzEwNjhjMmRlM2E2YmE2YTViNzMzZTM4YTIzNjljZjBiNzk2IiwiYWN0aXZlIjp0cnVlLCJjb25zdW1lZCI6dHJ1ZSwiZWxpZ2libGUiOmZhbHNlLCJzdGFydGVkX2F0IjoxNzgxMjI0Njg3LjUzMywiZXhwaXJlc19hdCI6MTc4MTQ4Mzg4Ny41MzMsInNlcnZlcl9ub3ciOjE3ODEyMjQ3MjUsIm1lc3NhZ2UiOiJUcmlhbCBhY3RpdmUuIEVuZHMgaW4gMyBkYXlzLiJ9.OnbnsQa2joPQuxrG4o0O0huXFPJ9zuyulGPphJo3k1t88JjC6pQMfgZTo0nCps5ISviUPlxcLGXLe3GTScIJ_g</string>
-		<key>licenseTrialStartedAt</key>
-		<real>1781224687.533</real>
 		<key>lockScreenMediaMaterial</key>
 		<string>auto</string>
 		<key>lockScreenWidgetStyle</key>
 		<string>horizontal</string>
 		<key>mediaHUDPreferredLaunchTarget</key>
 		<string>spotify</string>
+		<key>notesTracked</key>
+		<true/>
+		<key>notes_autoGrowCanvas</key>
+		<true/>
+		<key>notes_enabled</key>
+		<true/>
 		<key>notes_installed</key>
-		<false/>
+		<true/>
 		<key>notificationHUDTracked</key>
 		<true/>
 		<key>notificationHUD_installed</key>
@@ -267,6 +257,10 @@
 		<true/>
 		<key>pomodoro_ambientSoundEnabled</key>
 		<true/>
+		<key>pomodoro_ambientSoundName</key>
+		<string>Fire</string>
+		<key>pomodoro_ambientSoundVolume</key>
+		<real>0.29999999999999999</real>
 		<key>pomodoro_enabled</key>
 		<true/>
 		<key>pomodoro_installed</key>
@@ -274,9 +268,9 @@
 		<key>pomodoro_instantlyExpandShelfOnHover</key>
 		<true/>
 		<key>pomodoro_lastUsedSelectionJSON</key>
-		<string>{"sectionID":"focus","minutes":50}</string>
+		<string>{"minutes":60,"sectionID":"focus"}</string>
 		<key>pomodoro_sectionsJSON</key>
-		<string>[{"colorHex":"#FF9500","timers":[5,10,15,25,50],"order":0,"id":"focus","name":"Timer"}]</string>
+		<string>[{"id":"focus","name":"Timer","colorHex":"#FF9500","order":0,"timers":[5,10,15,25,50]}]</string>
 		<key>quickActionsCloudProvider</key>
 		<string>iCloudDrive</string>
 		<key>quickActionsMailApp</key>
@@ -303,16 +297,19 @@
 		<string>none</string>
 		<key>shelfWidgetShortcuts</key>
 		<data>
-		eyJwb21vZG9ybyI6eyJrZXlDb2RlIjoxNywibW9kaWZpZXJzIjo2NTUzNjB9
-		LCJtZWRpYSI6eyJrZXlDb2RlIjo0NiwibW9kaWZpZXJzIjo2NTUzNjB9LCJo
-		aWdoQWxlcnQiOnsia2V5Q29kZSI6MCwibW9kaWZpZXJzIjo2NTUzNjB9LCJ3
-		ZWF0aGVyIjp7ImtleUNvZGUiOjEzLCJtb2RpZmllcnMiOjY1NTM2MH0sIm5v
-		dGlmaWNhdGlvbnMiOnsia2V5Q29kZSI6NDUsIm1vZGlmaWVycyI6NjU1MzYw
-		fSwidGVybWluYWwiOnsia2V5Q29kZSI6NDksIm1vZGlmaWVycyI6NjU1MzYw
-		fX0=
+		eyJ0ZXJtaW5hbCI6eyJrZXlDb2RlIjozNiwibW9kaWZpZXJzIjo1MjQyODh9
+		LCJub3RlcyI6eyJrZXlDb2RlIjo0NSwibW9kaWZpZXJzIjo2NTUzNjB9LCJh
+		aUNvZGluZ0hVRCI6eyJrZXlDb2RlIjo0OSwibW9kaWZpZXJzIjo2NTUzNjB9
+		LCJoaWdoQWxlcnQiOnsia2V5Q29kZSI6MCwibW9kaWZpZXJzIjo2NTUzNjB9
+		LCJ3ZWF0aGVyIjp7ImtleUNvZGUiOjEzLCJtb2RpZmllcnMiOjY1NTM2MH0s
+		InBvbW9kb3JvIjp7ImtleUNvZGUiOjE3LCJtb2RpZmllcnMiOjY1NTM2MH0s
+		Im1lZGlhIjp7ImtleUNvZGUiOjQ2LCJtb2RpZmllcnMiOjY1NTM2MH0sIm5v
+		dGlmaWNhdGlvbnMiOnsia2V5Q29kZSI6NDQsIm1vZGlmaWVycyI6NjU1MzYw
+		fSwidGFza3NDYWxlbmRhciI6eyJrZXlDb2RlIjo4LCJtb2RpZmllcnMiOjY1
+		NTM2MH19
 		</data>
 		<key>shelfWidgetsConfiguration</key>
-		<string>{"profiles":["builtIn",{"activePageIndex":0,"pages":[{"id":"8968965C-5393-4AD1-AD8A-6C4FD2195B5F","index":0,"placements":[{"id":"5E8563CA-47C1-45BB-A465-8F2391639547","order":0,"heightHint":"standard","sizeHint":"small","type":"weather"},{"id":"6937F570-6192-451E-9A47-287AC645C128","order":1,"heightHint":"standard","sizeHint":"small","type":"tasksCalendar"},{"id":"5F4112A3-4092-41BA-96C1-199C8E1731CE","order":2,"heightHint":"standard","sizeHint":"small","type":"highAlert"}]},{"placements":[{"sizeHint":"small","id":"458CE1FC-6EAA-49C7-AC7D-A4FA5F6BB55A","heightHint":"standard","order":0,"type":"media"}],"id":"8B8AC3B3-6F6A-48E7-8B3A-297B3B49F4EA","index":1}]},"external",{"activePageIndex":0,"pages":[{"id":"2CCC373E-4CD0-4E00-9717-3C28C96607CA","index":0,"placements":[{"type":"weather","sizeHint":"small","heightHint":"standard","order":0,"id":"FFA22FAF-786A-4552-8437-686B7BE0514A"},{"type":"tasksCalendar","sizeHint":"small","heightHint":"standard","order":1,"id":"B40BF4CD-5B78-46F0-826E-9132424AED8C"},{"type":"highAlert","sizeHint":"small","heightHint":"standard","order":2,"id":"25858D12-61F5-4259-B492-BCEED7D8C5CB"}]},{"id":"390EB70F-87B6-4ED5-8299-339F2D6C4A20","index":1,"placements":[{"heightHint":"standard","type":"media","order":0,"sizeHint":"small","id":"24A43D49-5012-447C-ABE3-BDDAC409568B"}]}]}],"version":1}</string>
+		<string>{"profiles":["builtIn",{"activePageIndex":0,"pages":[{"index":0,"id":"8968965C-5393-4AD1-AD8A-6C4FD2195B5F","placements":[{"heightHint":"standard","order":0,"type":"weather","sizeHint":"small","id":"5E8563CA-47C1-45BB-A465-8F2391639547"},{"heightHint":"standard","order":1,"type":"tasksCalendar","sizeHint":"small","id":"6937F570-6192-451E-9A47-287AC645C128"},{"heightHint":"standard","order":2,"type":"highAlert","sizeHint":"small","id":"5F4112A3-4092-41BA-96C1-199C8E1731CE"}]},{"index":1,"id":"8B8AC3B3-6F6A-48E7-8B3A-297B3B49F4EA","placements":[{"order":0,"type":"media","sizeHint":"small","heightHint":"standard","id":"458CE1FC-6EAA-49C7-AC7D-A4FA5F6BB55A"}]}]},"external",{"activePageIndex":0,"pages":[{"placements":[{"heightHint":"standard","type":"weather","id":"FFA22FAF-786A-4552-8437-686B7BE0514A","order":0,"sizeHint":"small"},{"heightHint":"standard","type":"tasksCalendar","id":"B40BF4CD-5B78-46F0-826E-9132424AED8C","order":1,"sizeHint":"small"},{"heightHint":"standard","type":"highAlert","id":"25858D12-61F5-4259-B492-BCEED7D8C5CB","order":2,"sizeHint":"small"}],"index":0,"id":"2CCC373E-4CD0-4E00-9717-3C28C96607CA"},{"placements":[{"order":0,"sizeHint":"small","id":"24A43D49-5012-447C-ABE3-BDDAC409568B","heightHint":"standard","type":"media"}],"index":1,"id":"390EB70F-87B6-4ED5-8299-339F2D6C4A20"}]}],"version":1}</string>
 		<key>shelfWidgetsMigrationCompleted</key>
 		<true/>
 		<key>showClipboardInMenuBar</key>
@@ -359,22 +356,65 @@
 		<string>8D83E3C7-77ED-406E-9051-E6C60C7DE631</string>
 		<key>terminalNotch_sessions</key>
 		<data>
-		W3siY29tbWFuZEhpc3RvcnkiOlsibHMiLCJjZCBEZXNrdG9wXC8iLCJscyIs
-		ImNkIC4uIiwibHMiLCJjZCBlbm9jaCIsImxzIiwiY2QgRG93bmxvYWRzXC8i
-		LCJjZCAuLlwvRG9jdW1lbnRzXC8iLCJscyIsImNkIEdpdGh1YiIsImxzIl0s
-		ImlkIjoiOEQ4M0UzQzctNzdFRC00MDZFLTkwNTEtRTZDNjBDN0RFNjMxIiwi
-		bGFzdE91dHB1dCI6IiIsImN1cnJlbnRXb3JraW5nRGlyZWN0b3J5UGF0aCI6
-		IlwvVXNlcnNcL2Vub2NoXC9Eb2N1bWVudHNcL0dpdGh1YiIsInRpdGxlIjoi
-		VGVybWluYWwgMSIsImhhc0V4ZWN1dGVkQ29tbWFuZCI6ZmFsc2V9XQ==
+		W3siaWQiOiI4RDgzRTNDNy03N0VELTQwNkUtOTA1MS1FNkM2MEM3REU2MzEi
+		LCJsYXN0T3V0cHV0IjoienNoOiBjb21tYW5kIE5PVCBmb3VuZDogJ2tkbWRt
+		ZCdcbmZpbGUtcXVlcnkgaXMgbm90IHN1cHBvcnRlZCBmb3IgSG9tZWJyZXdc
+		blsga2RtZG1kIF0gTk9UIGZvdW5kIGluIHRoZSBzeXN0ZW0gYW5kIG5vIHBh
+		Y2thZ2UgcHJvdmlkZXMgaXQuIiwiaGFzRXhlY3V0ZWRDb21tYW5kIjp0cnVl
+		LCJjb21tYW5kSGlzdG9yeSI6WyJscyIsImNkIERlc2t0b3BcLyIsImxzIiwi
+		Y2QgLi4iLCJscyIsImNkIGVub2NoIiwibHMiLCJjZCBEb3dubG9hZHNcLyIs
+		ImNkIC4uXC9Eb2N1bWVudHNcLyIsImxzIiwiY2QgR2l0aHViIiwibHMiLCJo
+		dHRwOlwvXC9pcHJvLnR2XC9saXZlXC9OYzUzTjJRa0VyXC9Fbm9jaFwvNzYx
+		NTMudHMiLCJtcHYgaHR0cDpcL1wvaXByby50dlwvbGl2ZVwvTmM1M04yUWtF
+		clwvRW5vY2hcLzc2MTUzLnRzIiwia2RtZG1kIl0sInRpdGxlIjoiVGVybWlu
+		YWwgMSIsImN1cnJlbnRXb3JraW5nRGlyZWN0b3J5UGF0aCI6IlwvVXNlcnNc
+		L2Vub2NoXC9Eb2N1bWVudHNcL0dpdGh1YiJ9XQ==
 		</data>
 		<key>thawInstallTracked</key>
 		<true/>
-		<key>thawInstalledAppPath</key>
-		<string>/Users/enoch/Applications/Thaw.app</string>
-		<key>thawInstalledVersion</key>
-		<string>1.2.0</string>
 		<key>thawLatestVersion</key>
 		<string>1.2.0</string>
+		<key>thunderstormShortcut</key>
+		<data>
+		eyJrZXlDb2RlIjoxLCJtb2RpZmllcnMiOjUyNDI4OH0=
+		</data>
+		<key>thunderstormTracked</key>
+		<true/>
+		<key>thunderstormUsageRecords</key>
+		<data>
+		eyJ1cmw6XC9BcHBsaWNhdGlvbnNcL0hhbW1lcnNwb29uLmFwcCI6eyJsYXVu
+		Y2hlcyI6MywibGFzdE9wZW5lZEF0Ijo4MDMyNjE3NTcuMjEyMTl9LCJjb21t
+		YW5kOnRvZG8ucXVpY2tPcGVuIjp7ImxhdW5jaGVzIjoxLCJsYXN0T3BlbmVk
+		QXQiOjgwMzIxOTEyMS4yOTg2MTR9LCJ1cmw6XC9TeXN0ZW1cL0FwcGxpY2F0
+		aW9uc1wvTWFpbC5hcHAiOnsibGF1bmNoZXMiOjIsImxhc3RPcGVuZWRBdCI6
+		ODAzMjM0NTM2Ljg4NTI2NH0sInVybDpcL0FwcGxpY2F0aW9uc1wvU3RyZW1p
+		by5hcHAiOnsibGF1bmNoZXMiOjEsImxhc3RPcGVuZWRBdCI6ODAzMjMwMzg1
+		LjMwNzM3OX0sInVybDpcL0FwcGxpY2F0aW9uc1wva2l0dHkuYXBwIjp7Imxh
+		dW5jaGVzIjo0LCJsYXN0T3BlbmVkQXQiOjgwMzI2MTc4MC4yMDA3OH0sImlu
+		dGVncmF0aW9uOndpZGdldDpwb21vZG9ybyI6eyJsYXVuY2hlcyI6MSwibGFz
+		dE9wZW5lZEF0Ijo4MDMyMjU2MTIuMjk2MTIzfSwidXJsOlwvQXBwbGljYXRp
+		b25zXC9pbG9hZGVyLmFwcCI6eyJsYXVuY2hlcyI6MSwibGFzdE9wZW5lZEF0
+		Ijo4MDMzNTEzMTcuMzA2NH0sInVybDpcL1N5c3RlbVwvQXBwbGljYXRpb25z
+		XC9TeXN0ZW0gU2V0dGluZ3MuYXBwIjp7ImxhdW5jaGVzIjoxLCJsYXN0T3Bl
+		bmVkQXQiOjgwMzM1MjE3NS43MjY0NjZ9LCJ1cmw6eC1hcHBsZS5zeXN0ZW1w
+		cmVmZXJlbmNlczpjb20uYXBwbGUuS2V5Ym9hcmQtU2V0dGluZ3MuZXh0ZW5z
+		aW9uP0tleWJvYXJkU2hvcnRjdXRzIjp7ImxhdW5jaGVzIjozLCJsYXN0T3Bl
+		bmVkQXQiOjgwMzIyNjc1MS4xODQzMjZ9LCJjb21tYW5kOndpbmRvd1NuYXAu
+		dG9wSGFsZiI6eyJsYXVuY2hlcyI6MSwibGFzdE9wZW5lZEF0Ijo4MDMzNTEy
+		OTQuNzMxNDg0fSwidXJsOngtYXBwbGUuc3lzdGVtcHJlZmVyZW5jZXM6Y29t
+		LmFwcGxlLnN5c3RlbXByZWZlcmVuY2VzLkdlbmVyYWxTZXR0aW5ncyI6eyJs
+		YXVuY2hlcyI6MSwibGFzdE9wZW5lZEF0Ijo4MDMyMjE4MzEuMzc2NDR9LCJp
+		bnRlZ3JhdGlvbjpidWlsdGluLXNldHRpbmdzOmRyb3BweS1hcHAiOnsibGF1
+		bmNoZXMiOjEsImxhc3RPcGVuZWRBdCI6ODAzMjIxNTUxLjYxMjUxNH0sImNv
+		bW1hbmQ6d2luZG93U25hcC5yaWdodEhhbGYiOnsibGF1bmNoZXMiOjEsImxh
+		c3RPcGVuZWRBdCI6ODAzMzUxMzAyLjQyMTY1MX0sInVybDpcL1N5c3RlbVwv
+		QXBwbGljYXRpb25zXC9NZXNzYWdlcy5hcHAiOnsibGF1bmNoZXMiOjEsImxh
+		c3RPcGVuZWRBdCI6ODAzMjYxMjcyLjQ2NTA4N30sInVybDpcL0FwcGxpY2F0
+		aW9uc1wvU3BvdGlmeS5hcHAiOnsibGF1bmNoZXMiOjEsImxhc3RPcGVuZWRB
+		dCI6ODAzMjI2MDU5Ljk5NDgwNH19
+		</data>
+		<key>thunderstorm_installed</key>
+		<true/>
 		<key>todoTracked</key>
 		<true/>
 		<key>todo_defaultReminderListID</key>
@@ -388,7 +428,7 @@
 		<key>todo_syncCalendarEnabled</key>
 		<true/>
 		<key>todo_syncCalendarListIDs</key>
-		<string>["4C385ADA-A4EF-4A1D-87F1-590B1CB77927","56EDCD78-5A01-4865-8013-C24A1F78144C","612B04AB-DADE-457A-A214-D4D9EBD9F6B9","81EADFF7-1C7D-44C7-9D4A-E048FC6DAF6E","894E1B52-D26B-4E23-96A4-9C380BDD3144","8A8167F8-042B-4FD4-BBE1-1E8D8B34D7D1","A0E6B5CF-F50C-459C-97A2-3B91A5600B26","A33CD920-724F-4622-B4A1-A31D3B3FAFD9","B5CCBF4A-792C-41AF-89AA-984E80AF0C41","E08B3ECC-1E5B-4EBA-A036-4953FAABA2E2"]</string>
+		<string>["150BBDA1-7A76-49CF-AB17-A96AA92EA599","3FB79081-BBD5-446D-A074-026B8694A5E7","4C317F33-6518-46EE-BE85-753EF0E380D8","5472DC74-E592-48CA-AC7D-027861865A3E","6280D6C3-D5C2-476D-A04F-CA5E6B1A5628","7B760630-3066-4188-83F1-19D695EC3EC5","8622A0FD-3F22-4759-80FC-DC9BE5628BAE","D211A9DC-10CD-4437-9A75-F99A8E0FD2B4","E384C530-A33E-450B-BEF8-5E3AB8C6B658","F19B128A-DE40-412A-B6AF-09C6C46682EC"]</string>
 		<key>todo_syncRemindersEnabled</key>
 		<true/>
 		<key>todo_syncRemindersListIDs</key>
@@ -419,6 +459,16 @@
 		<string>openai_whisper-small</string>
 		<key>voiceTranscribe_liveMode</key>
 		<false/>
+		<key>weatherAutoLocationIPConsent</key>
+		<true/>
+		<key>weatherCustomLocation</key>
+		<string>{"name":"Galway","displayName":"Galway, Co. Galway, Ireland","longitude":-9.0423851,"countryCode":"IE","latitude":53.2759362}</string>
+		<key>weatherLocationMode</key>
+		<string>custom</string>
+		<key>weatherWidgetAppearance</key>
+		<string>dynamic</string>
+		<key>weatherWidgetRefreshIntervalMinutes</key>
+		<integer>60</integer>
 	</dict>
 	<key>statusItemPositions</key>
 	<dict/>
