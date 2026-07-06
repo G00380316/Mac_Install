@@ -34,7 +34,7 @@ packages=(
 	"bash-language-server" "texlab" "harper" "jdtls" "markdown-oxide"
 	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
 	"superhtml" "llvm" "ty" "tinymist" "docker-language-server" "localsend"
-    "wgcf" "loop" "codex" "anomalyco/tap/opencode" "git-filter-repo"
+    "wgcf" "loop" "codex" "anomalyco/tap/opencode" "bfg"
 )
 
 npm_packages=(
