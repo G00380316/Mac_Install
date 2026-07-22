@@ -327,6 +327,7 @@ move_assets() {
 	cp -r ~/Documents/Github/Mac_Install/assets/.zshenv ~/
 	cp -r ~/Documents/Github/Mac_Install/assets/pm.sh ~/.config/scripts/
 	cp -r ~/Documents/Github/Mac_Install/assets/cht.sh ~/.config/scripts/
+	cp -r ~/Documents/Github/Mac_Install/assets/Scripts/android-emulator-setup.sh ~/.config/scripts/
 	cp -r ~/Documents/Github/Mac_Install/assets/.p10k.zsh ~/
 	cp -r ~/Documents/Github/Mac_Install/assets/kitty.conf ~/.config/kitty/
 	cp -r ~/Documents/Github/Mac_Install/assets/init.lua ~/.hammerspoon/
