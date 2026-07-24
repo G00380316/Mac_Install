@@ -100,11 +100,6 @@ hs.hotkey.bind({ "alt" }, "B", function()
     launchApp("Firefox")
 end)
 
--- VS Code (⌥ + V)
-hs.hotkey.bind({ "alt" }, "v", function()
-    launchApp("Visual Studio Code")
-end)
-
 -- Xcode (⌥ + X)
 hs.hotkey.bind({ "alt" }, "x", function()
     launchApp("Xcode")
@@ -113,11 +108,6 @@ end)
 -- Kodi (⌥ + K) → fullscreen
 hs.hotkey.bind({ "alt" }, "k", function()
     launchApp("Kodi", { fullscreen = true })
-end)
-
--- Stremio (⌥ + M) → fullscreen
-hs.hotkey.bind({ "alt" }, "m", function()
-    launchApp("Stremio", { fullscreen = true })
 end)
 
 hs.hotkey.bind({ "cmd", "shift" }, "return", function() launchKittyWithNvim() end)
