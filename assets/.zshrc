@@ -94,11 +94,13 @@ mkcd() { mkdir -p "$1" && cd "$1"; }
 setup() {
   case "$1" in
     python)    python3 -m venv .venv && source .venv/bin/activate  ;;
+    pipx)   pipx ensurepath;;
     *)         echo "Unsupported Project" ;;
   esac
 }
 
 pip() { python3 -m pip install "$1" }
+gpip() { pipx install "$1" }
 
 extract() {
   case "$1" in

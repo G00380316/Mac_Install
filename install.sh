@@ -35,6 +35,8 @@ packages=(
 	"pyrefly" "quick-lint-js" "ruff" "rust-analyzer" "sqruff"
 	"superhtml" "llvm" "ty" "tinymist" "docker-language-server" "localsend"
     "wgcf" "loop" "codex" "anomalyco/tap/opencode" "claude-code" "bfg"
+    "meson" "ninja" "nasm" "cmake" "autoconf" "automake" "pkgconf"
+    "libtool" "gettext" "libxml2" "pipx"
 )
 
 npm_packages=(
@@ -45,6 +47,10 @@ npm_packages=(
 
 mac_apps=(
     "497799835" "6467635137" "1444383602" "1595464182" "937984704"
+)
+
+pip_tools=(
+    "pymobiledevice3"
 )
 
 # Colors and labels for script output
@@ -155,6 +161,11 @@ npm_is_installed() {
 mac_app_is_installed() {
   mas list "$1" &>/dev/null
 }
+
+pip_tool_is_installed() {
+  pipx list "$1" &>/dev/null
+}
+
 
 # Install all packages from the list
 install_packages() {
@@ -283,12 +294,52 @@ install_mac_apps() {
   done
 
   echo
-  echo "${OK} npm Installation Summary:"
+  echo "${OK} App Store Installation Summary:"
   echo "  ✅ Installed: ${installed}"
   echo "  ⚙️  Skipped: ${skipped}"
   echo "  ❌ Failed: ${failed}"
   echo
 }
+
+install_pip_tools() {
+  echo "${CAT} Installing Pip tools..."
+
+  local installed=0
+  local skipped=0
+  local failed=0
+
+  for pkg in "${pip_tools[@]}"; do
+    if pip_tool_is_installed "$pkg"; then
+      echo "${INFO} ${YELLOW}$pkg${RESET} already installed — skipping..."
+      ((skipped++))
+      continue
+    fi
+
+    echo "${NOTE} Installing ${YELLOW}$pkg${RESET} (pipx install)..."
+
+    if $DRY_RUN; then
+      echo "${INFO} (DRY RUN): Would run 'pipx install $pkg'"
+      ((installed++))
+      continue
+    fi
+
+    if mas install "$pkg" >>"$LOG" 2>&1; then
+      echo "${OK} ${YELLOW}$pkg${RESET} installed successfully"
+      ((installed++))
+    else
+      echo "${ERROR} ${YELLOW}$pkg${RESET} failed to install"
+      ((failed++))
+    fi
+  done
+
+  echo
+  echo "${OK} Pip Installation Summary:"
+  echo "  ✅ Installed: ${installed}"
+  echo "  ⚙️  Skipped: ${skipped}"
+  echo "  ❌ Failed: ${failed}"
+  echo
+}
+
 
 # Function to move config and asset files
 move_assets() {
@@ -354,6 +405,10 @@ install_npm_packages
 
 echo "${CAT} Starting App Store apps installation..."
 install_mac_apps 
+
+echo "${CAT} Starting Pip tools installation..."
+pipx ensurepath
+install_pip_tools
 
 # Install Pokemon Colorscripts
 if [ -f "$HOME/Documents/Github/Mac_Install/assets/Pokemon-ColorScript-Mac/install.sh" ]; then
