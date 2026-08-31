@@ -36,7 +36,7 @@ packages=(
 	"superhtml" "llvm" "ty" "tinymist" "docker-language-server" "localsend"
     "wgcf" "loop" "codex" "anomalyco/tap/opencode" "claude-code" "bfg"
     "meson" "ninja" "nasm" "cmake" "autoconf" "automake" "pkgconf"
-    "libtool" "gettext" "libxml2" "pipx"
+    "libtool" "gettext" "libxml2" "pipx" "onyx"
 )
 
 npm_packages=(
