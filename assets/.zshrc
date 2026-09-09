@@ -84,6 +84,7 @@ alias ni='nvim $(fzf --preview="bat --color=always {}")'
 alias lg='lazygit'
 alias search='rg'
 alias nosleep='caffeinate -d'
+alias python='python3'
 alias lg='lazygit'
 alias docs="~/.config/scripts/cht.sh"
 
@@ -159,6 +160,28 @@ run() {
     esac
 }
 
+runtest() {
+    # Exit if no file is provided
+    if [[ -z "$1" ]]; then
+        echo "Usage: run <filename>"
+        return 1
+    fi
+
+    local file="$1"
+    local base="${file%.*}" # Removes the last extension
+    local ext="${file##*.}" # Gets the extension (e.g., c, cpp, py)
+
+    case "$ext" in
+        py)
+            python3 -m doctest "$file" "${@:2}"
+            ;;
+        *)
+            echo "Error: I don't know how to run '.$ext' files yet."
+            return 1
+            ;;
+    esac
+}
+
 # Editor
 export EDITOR=nvim
 [[ -n $SSH_CONNECTION ]] && export EDITOR=vim
@@ -166,4 +189,8 @@ export EDITOR=nvim
 export TMPDIR=/tmp
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+
+# Created by `pipx` on 2026-08-22 11:01:01
+export PATH="$PATH:/Users/enoch/.local/bin"
 
