@@ -100,8 +100,6 @@ setup() {
   esac
 }
 
-pip() { python3 -m pip install "$1" }
-gpip() { pipx install "$1" }
 
 extract() {
   case "$1" in
@@ -369,4 +367,3 @@ export TMPDIR=/tmp
 
 # Created by `pipx` on 2026-08-22 11:01:01
 export PATH="$PATH:/Users/enoch/.local/bin"
-
