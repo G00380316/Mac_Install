@@ -36,13 +36,14 @@ packages=(
 	"superhtml" "llvm" "ty" "tinymist" "docker-language-server" "localsend"
     "wgcf" "loop" "codex" "anomalyco/tap/opencode" "claude-code" "bfg"
     "meson" "ninja" "nasm" "cmake" "autoconf" "automake" "pkgconf"
-    "libtool" "gettext" "libxml2" "pipx" "onyx"
+    "libtool" "gettext" "libxml2" "pipx" "onyx" "pandoc" "tesseract"
 )
 
 npm_packages=(
   "css-variables-language-server" "vscode-langservers-extracted"
   "cssmodules-language-server" "oxlint" "@tailwindcss/language-server"
   "devsense-php-ls" "@microsoft/compose-language-service"
+  "@github/copilot-language-server"
 )
 
 mac_apps=(
@@ -50,7 +51,7 @@ mac_apps=(
 )
 
 pip_tools=(
-    "pymobiledevice3"
+    "pymobiledevice3" "jupytext"
 )
 
 # Colors and labels for script output
@@ -468,6 +469,29 @@ else
 	fi
 fi
 
+
+# Notebook support (molten-nvim) is a Python remote plugin. It needs a Python
+# with pynvim and the Jupyter client libraries; they live in a venv of their own
+# so no project environment has to carry them. jupytext (a pipx tool above)
+# turns .ipynb files into Markdown and back.
+echo "${NOTE} Setting up Neovim's Python host for notebooks..."
+NVIM_PY_HOST="$HOME/.local/share/nvim/python-host"
+if $DRY_RUN; then
+	echo "${INFO} (DRY RUN): Would create $NVIM_PY_HOST, install pynvim/jupyter libraries, register the python3 kernel and run :UpdateRemotePlugins."
+else
+	if [ ! -x "$NVIM_PY_HOST/bin/python" ]; then
+		python3 -m venv "$NVIM_PY_HOST" >>"$LOG" 2>&1
+	fi
+	"$NVIM_PY_HOST/bin/pip" install -q --upgrade pynvim jupyter_client ipykernel nbformat \
+		cairosvg pnglatex plotly kaleido pyperclip pillow >>"$LOG" 2>&1 &&
+		echo "${OK} Notebook Python libraries installed."
+	"$NVIM_PY_HOST/bin/python" -m ipykernel install --user --name python3 --display-name "Python 3" >>"$LOG" 2>&1 || true
+	mkdir -p "$HOME/Library/Jupyter/runtime"
+	# Starting Neovim installs the plugins (vim.pack) before the remote-plugin
+	# manifest is written, so molten is registered on the first run.
+	nvim --headless "+UpdateRemotePlugins" "+qa" >>"$LOG" 2>&1 || true
+	echo "${OK} Neovim notebook host ready. Sign in to Copilot once with :LspCopilotSignIn."
+fi
 
 echo "${CAT} Starting System Optimisation..."
 

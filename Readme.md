@@ -13,3 +13,14 @@
         ./install.sh
 
 
+
+# After the script (Neovim)
+
+    - Sign in to GitHub Copilot once, from any code file in Neovim:
+
+        :LspCopilotSignIn
+
+    - Notebooks (.ipynb) open as Markdown through jupytext, and <leader>n runs a
+      cell. The script sets up the Python environment this needs at
+      ~/.local/share/nvim/python-host; to use a project's own libraries in a
+      notebook, pick that project's kernel from the Notebook Actions menu.
