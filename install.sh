@@ -483,7 +483,7 @@ else
 		python3 -m venv "$NVIM_PY_HOST" >>"$LOG" 2>&1
 	fi
 	"$NVIM_PY_HOST/bin/pip" install -q --upgrade pynvim jupyter_client ipykernel nbformat \
-		cairosvg pnglatex plotly kaleido pyperclip pillow >>"$LOG" 2>&1 &&
+		cairosvg pnglatex plotly kaleido pyperclip pillow nbconvert >>"$LOG" 2>&1 &&
 		echo "${OK} Notebook Python libraries installed."
 	"$NVIM_PY_HOST/bin/python" -m ipykernel install --user --name python3 --display-name "Python 3" >>"$LOG" 2>&1 || true
 	mkdir -p "$HOME/Library/Jupyter/runtime"
