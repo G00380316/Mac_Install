@@ -162,8 +162,15 @@ run() {
             return
             ;;
         requirements.txt)
-            # Installed into whatever Python is active: a venv, if you are in one.
-            python3 -m pip install -r "$file" "${@:2}"
+            # Into the venv you are in; otherwise into a .venv beside the file,
+            # made if there is none (a bare pip install is refused on this Python).
+            if [[ -n "$VIRTUAL_ENV" ]]; then
+                python3 -m pip install -r "$file" "${@:2}"
+            else
+                [[ -d "${file:h}/.venv" ]] || python3 -m venv "${file:h}/.venv" || return
+                "${file:h}/.venv/bin/python" -m pip install -r "$file" "${@:2}" \
+                    && echo "Installed into ${file:h}/.venv -- activate: source ${file:h}/.venv/bin/activate"
+            fi
             return
             ;;
         package.json)
