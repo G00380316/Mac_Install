@@ -260,6 +260,11 @@ run() {
                 open "$file"
             fi
             ;;
+        zip)
+            # Unpacked into a folder named after it, beside it.
+            command -v unzip > /dev/null 2>&1 || return $(_run_missing unzip)
+            unzip -o "$file" -d "$base" && echo "Extracted to $base/"
+            ;;
         *)
             _run_unknown run ".$ext"
             ;;
