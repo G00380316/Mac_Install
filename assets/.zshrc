@@ -161,6 +161,16 @@ run() {
             make -C "${file:h}" "${@:2}"
             return
             ;;
+        requirements.txt)
+            # Installed into whatever Python is active: a venv, if you are in one.
+            python3 -m pip install -r "$file" "${@:2}"
+            return
+            ;;
+        package.json)
+            command -v npm > /dev/null 2>&1 || return $(_run_missing npm)
+            (cd "${file:h}" && npm install "${@:2}")
+            return
+            ;;
     esac
 
     case "${ext:l}" in
@@ -258,6 +268,40 @@ run() {
                 glow "$file" "${@:2}"
             else
                 open "$file"
+            fi
+            ;;
+        tar|tgz|tbz2|txz)
+            # Unpacked into a folder named after it, beside it.
+            local dest="${file%.*}"
+            mkdir -p "$dest" && tar -xf "$file" -C "$dest" && echo "Extracted to $dest/"
+            ;;
+        gz|bz2|xz)
+            if [[ "${name:l}" == *.tar.* ]]; then
+                # .tar.gz, .tar.bz2, .tar.xz: the archive inside is unpacked too.
+                local dest="${file%.tar.*}"
+                mkdir -p "$dest" && tar -xf "$file" -C "$dest" && echo "Extracted to $dest/"
+            else
+                # A single compressed file: unpacked beside it, the original kept.
+                case "${ext:l}" in
+                    gz)  gunzip -k "$file" ;;
+                    bz2) bunzip2 -k "$file" ;;
+                    xz)  unxz -k "$file" ;;
+                esac && echo "Unpacked to $base"
+            fi
+            ;;
+        json)
+            if command -v jq > /dev/null 2>&1; then
+                jq . "$file"
+            else
+                python3 -m json.tool "$file"
+            fi
+            ;;
+        csv)
+            # Aligned into columns; csvlook (csvkit) if there is one.
+            if command -v csvlook > /dev/null 2>&1; then
+                csvlook "$file"
+            else
+                column -s, -t < "$file"
             fi
             ;;
         zip)
