@@ -37,6 +37,7 @@ packages=(
     "wgcf" "loop" "codex" "anomalyco/tap/opencode" "claude-code" "bfg"
     "meson" "ninja" "nasm" "cmake" "autoconf" "automake" "pkgconf"
     "libtool" "gettext" "libxml2" "pipx" "onyx" "pandoc" "tesseract"
+    "jq" "yq" "p7zip" "poppler"
 )
 
 npm_packages=(

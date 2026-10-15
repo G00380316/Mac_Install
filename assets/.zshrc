@@ -153,7 +153,7 @@ run() {
     # A few things are known by their whole name and have no extension at all.
     case "$name" in
         Dockerfile|Containerfile|*.Dockerfile)
-            command -v docker > /dev/null 2>&1 || return $(_run_missing docker)
+            command -v docker > /dev/null 2>&1 || { _run_missing docker; return 127 }
             docker build -f "$file" "${@:2}" "${file:h}"
             return
             ;;
@@ -174,8 +174,37 @@ run() {
             return
             ;;
         package.json)
-            command -v npm > /dev/null 2>&1 || return $(_run_missing npm)
+            command -v npm > /dev/null 2>&1 || { _run_missing npm; return 127 }
             (cd "${file:h}" && npm install "${@:2}")
+            return
+            ;;
+        docker-compose.yml|docker-compose.yaml|compose.yml|compose.yaml)
+            command -v docker > /dev/null 2>&1 || { _run_missing docker; return 127 }
+            docker compose -f "$file" up "${@:2}"
+            return
+            ;;
+        Cargo.toml)
+            command -v cargo > /dev/null 2>&1 || { _run_missing cargo; return 127 }
+            (cd "${file:h}" && cargo run "${@:2}")
+            return
+            ;;
+        go.mod)
+            command -v go > /dev/null 2>&1 || { _run_missing go; return 127 }
+            (cd "${file:h}" && go run . "${@:2}")
+            return
+            ;;
+        Package.swift)
+            (cd "${file:h}" && swift run "${@:2}")
+            return
+            ;;
+        Brewfile)
+            command -v brew > /dev/null 2>&1 || { _run_missing brew; return 127 }
+            brew bundle --file "$file" "${@:2}"
+            return
+            ;;
+        CMakeLists.txt)
+            command -v cmake > /dev/null 2>&1 || { _run_missing cmake; return 127 }
+            cmake -S "${file:h}" -B "${file:h}/build" && cmake --build "${file:h}/build" "${@:2}"
             return
             ;;
     esac
@@ -311,9 +340,98 @@ run() {
                 column -s, -t < "$file"
             fi
             ;;
+        7z)
+            local sz
+            sz=$(command -v 7zz || command -v 7z) || { _run_missing 7zip; return 127 }
+            mkdir -p "$base" && "$sz" x -y "$file" -o"$base" && echo "Extracted to $base/"
+            ;;
+        rar)
+            mkdir -p "$base"
+            if command -v unrar > /dev/null 2>&1; then
+                unrar x -o+ "$file" "$base/" && echo "Extracted to $base/"
+            elif command -v rar > /dev/null 2>&1; then
+                rar x -o+ "$file" "$base/" && echo "Extracted to $base/"
+            else
+                { _run_missing unrar; return 127 }
+            fi
+            ;;
+        dmg)
+            # Mounted, and the volume opened in Finder.
+            local mount
+            mount=$(hdiutil attach "$file" | awk -F'\t' '/\/Volumes\// {print $NF}' | tail -1)
+            [[ -n "$mount" ]] && echo "Mounted at $mount" && open "$mount"
+            ;;
+        yaml|yml)
+            if command -v yq > /dev/null 2>&1; then
+                yq . "$file"
+            elif python3 -c "import yaml" > /dev/null 2>&1; then
+                python3 -c 'import sys,yaml,json; print(json.dumps(yaml.safe_load(open(sys.argv[1])), indent=2, default=str))' "$file"
+            else
+                cat "$file"
+            fi
+            ;;
+        toml)
+            python3 -c 'import sys,tomllib,json; print(json.dumps(tomllib.load(open(sys.argv[1],"rb")), indent=2, default=str))' "$file"
+            ;;
+        xml)
+            command -v xmllint > /dev/null 2>&1 || { _run_missing xmllint; return 127 }
+            xmllint --format "$file"
+            ;;
+        plist)
+            plutil -p "$file"
+            ;;
+        db|sqlite|sqlite3)
+            # The tables, and how many rows each holds.
+            command -v sqlite3 > /dev/null 2>&1 || { _run_missing sqlite3; return 127 }
+            local table
+            for table in $(sqlite3 "$file" "select name from sqlite_master where type='table' order by name"); do
+                printf '%-30s %s rows\n' "$table" "$(sqlite3 "$file" "select count(*) from \"$table\"")"
+            done
+            ;;
+        kt)
+            command -v kotlinc > /dev/null 2>&1 || { _run_missing kotlinc; return 127 }
+            kotlinc "$file" -include-runtime -d "$base.jar" && java -jar "$base.jar" "${@:2}"
+            ;;
+        kts)
+            command -v kotlin > /dev/null 2>&1 || { _run_missing kotlin; return 127 }
+            kotlin "$file" "${@:2}"
+            ;;
+        pl)
+            perl "$file" "${@:2}"
+            ;;
+        r)
+            command -v Rscript > /dev/null 2>&1 || { _run_missing Rscript; return 127 }
+            Rscript "$file" "${@:2}"
+            ;;
+        jl)
+            command -v julia > /dev/null 2>&1 || { _run_missing julia; return 127 }
+            julia "$file" "${@:2}"
+            ;;
+        zig)
+            command -v zig > /dev/null 2>&1 || { _run_missing zig; return 127 }
+            zig run "$file" -- "${@:2}"
+            ;;
+        hs)
+            command -v runghc > /dev/null 2>&1 || { _run_missing runghc; return 127 }
+            runghc "$file" "${@:2}"
+            ;;
+        dart)
+            command -v dart > /dev/null 2>&1 || { _run_missing dart; return 127 }
+            dart run "$file" "${@:2}"
+            ;;
+        docx)
+            # To Markdown beside it, with its pictures in a folder of their own.
+            command -v pandoc > /dev/null 2>&1 || { _run_missing pandoc; return 127 }
+            pandoc "$file" -t markdown -o "$base.md" --extract-media="${base}_media" && echo "Wrote $base.md"
+            ;;
+        pdf)
+            # The text, laid out as on the page, in a .txt beside it.
+            command -v pdftotext > /dev/null 2>&1 || { _run_missing pdftotext; return 127 }
+            pdftotext -layout "$file" "$base.txt" && echo "Wrote $base.txt"
+            ;;
         zip)
             # Unpacked into a folder named after it, beside it.
-            command -v unzip > /dev/null 2>&1 || return $(_run_missing unzip)
+            command -v unzip > /dev/null 2>&1 || { _run_missing unzip; return 127 }
             unzip -o "$file" -d "$base" && echo "Extracted to $base/"
             ;;
         *)
@@ -387,7 +505,7 @@ runtest() {
             fi
             ;;
         lua)
-            command -v busted > /dev/null 2>&1 || return $(_run_missing busted)
+            command -v busted > /dev/null 2>&1 || { _run_missing busted; return 127 }
             busted "$file" "${@:2}"
             ;;
         php)
@@ -405,6 +523,22 @@ runtest() {
                 # asked is whether it parses at all.
                 "${ext:l}" -n "$file" && echo "OK: $name parses."
             fi
+            ;;
+        rb)
+            if [[ "$name" == *_spec.rb ]] && command -v rspec > /dev/null 2>&1; then
+                rspec "$file" "${@:2}"
+            else
+                ruby -Itest "$file" "${@:2}"
+            fi
+            ;;
+        dart)
+            command -v dart > /dev/null 2>&1 || { _run_missing dart; return 127 }
+            dart test "$file" "${@:2}"
+            ;;
+        kt)
+            root=$(_run_root "$file" gradlew) \
+                || { echo "Error: no Gradle project above '$file'."; return 1 }
+            (cd "$root" && ./gradlew test "${@:2}")
             ;;
         *)
             _run_unknown test ".$ext"
