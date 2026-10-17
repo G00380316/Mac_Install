@@ -44,7 +44,7 @@ npm_packages=(
   "css-variables-language-server" "vscode-langservers-extracted"
   "cssmodules-language-server" "oxlint" "@tailwindcss/language-server"
   "devsense-php-ls" "@microsoft/compose-language-service"
-  "@github/copilot-language-server"
+  "@github/copilot-language-server" "yaml-language-server"
 )
 
 mac_apps=(
