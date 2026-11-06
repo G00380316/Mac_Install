@@ -494,6 +494,17 @@ else
 	echo "${OK} Neovim notebook host ready. Sign in to Copilot once with :LspCopilotSignIn."
 fi
 
+# Anything else Neovim itself uses that is still missing (language servers,
+# pandoc, ripgrep ... the list lives in ~/.config/nvim/lua/deps.lua, which also
+# works on Linux) is fetched by the config. Neovim offers the same on demand.
+echo "${NOTE} Letting Neovim install any tools it still needs..."
+if $DRY_RUN; then
+	echo "${INFO} (DRY RUN): Would run nvim --headless to install missing Neovim tools."
+else
+	nvim --headless "+lua os.exit(require('deps').install_missing_headless() == 0 and 0 or 1)" 2>&1 | tee -a "$LOG" ||
+		echo "${WARN} Some Neovim tools are still missing; run :Deps in Neovim."
+fi
+
 echo "${CAT} Starting System Optimisation..."
 
 # Window speed
