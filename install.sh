@@ -37,7 +37,7 @@ packages=(
     "wgcf" "loop" "codex" "anomalyco/tap/opencode" "claude-code" "bfg"
     "meson" "ninja" "nasm" "cmake" "autoconf" "automake" "pkgconf"
     "libtool" "gettext" "libxml2" "pipx" "onyx" "pandoc" "tesseract"
-    "jq" "yq" "p7zip" "poppler" "librsvg" "r"
+    "jq" "yq" "p7zip" "poppler" "librsvg" "r" "duti"
 )
 
 npm_packages=(
@@ -524,6 +524,15 @@ if [ -f "$HOME/.config/nvim/launcher/install.sh" ]; then
 	else
 		sh "$HOME/.config/nvim/launcher/install.sh" >>"$LOG" 2>&1 ||
 			echo "${WARN} The Neovim launcher did not install; see $LOG."
+	fi
+
+	# Make Neovim the app that opens these files from Finder (what Get Info >
+	# Open with > Change All does, one type at a time).
+	if ! $DRY_RUN && command -v duti >/dev/null 2>&1 && [ -d "$HOME/Applications/Neovim.app" ]; then
+		for ext in md markdown Rmd rmd qmd txt lua json yaml yml toml py js ts tsx jsx sh zsh conf ini log csv; do
+			duti -s local.nvim-launcher ".$ext" all >>"$LOG" 2>&1 || true
+		done
+		echo "${OK} Neovim is now the default app for text and code files."
 	fi
 fi
 
