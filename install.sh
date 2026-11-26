@@ -505,6 +505,28 @@ else
 		echo "${WARN} Some Neovim tools are still missing; run :Deps in Neovim."
 fi
 
+# R Markdown: the R package that renders .Rmd files (R itself is in the package list).
+if command -v Rscript >/dev/null 2>&1 && ! Rscript -e 'quit(status = !requireNamespace("rmarkdown", quietly = TRUE))' >/dev/null 2>&1; then
+	echo "${NOTE} Installing the R package rmarkdown..."
+	if $DRY_RUN; then
+		echo "${INFO} (DRY RUN): Would install the R package rmarkdown."
+	else
+		Rscript -e 'install.packages("rmarkdown", repos = "https://cloud.r-project.org")' >>"$LOG" 2>&1 ||
+			echo "${WARN} rmarkdown did not install; try it by hand, see $LOG."
+	fi
+fi
+
+# Neovim.app: Finder opens files in the running Neovim, in kitty.
+if [ -f "$HOME/.config/nvim/launcher/install.sh" ]; then
+	echo "${NOTE} Installing the Neovim file launcher..."
+	if $DRY_RUN; then
+		echo "${INFO} (DRY RUN): Would run ~/.config/nvim/launcher/install.sh."
+	else
+		sh "$HOME/.config/nvim/launcher/install.sh" >>"$LOG" 2>&1 ||
+			echo "${WARN} The Neovim launcher did not install; see $LOG."
+	fi
+fi
+
 echo "${CAT} Starting System Optimisation..."
 
 # Window speed
